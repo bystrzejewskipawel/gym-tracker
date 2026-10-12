@@ -29,7 +29,7 @@ router.post('/', async (req, res) => {
       user: req.userId,
       name: name.trim(),
       category: category?.trim() || 'General',
-      restSeconds: parseRest(restSeconds) ?? 90,
+      restSeconds: parseRest(restSeconds) ?? 180,
       asymmetrical: !!asymmetrical
     });
     res.status(201).json(exercise);
@@ -41,10 +41,15 @@ router.post('/', async (req, res) => {
   }
 });
 
-// PATCH /api/exercises/:id - edit rest time / asymmetry / category
+// PATCH /api/exercises/:id - edit name / rest time / asymmetry / category
 router.patch('/:id', async (req, res) => {
   try {
     const updates = {};
+    if (req.body.name !== undefined) {
+      const name = String(req.body.name).trim();
+      if (!name) return res.status(400).json({ error: 'Exercise name is required' });
+      updates.name = name;
+    }
     if (req.body.restSeconds !== undefined) {
       const rest = parseRest(req.body.restSeconds);
       if (rest === undefined) return res.status(400).json({ error: 'Invalid rest time' });
@@ -61,6 +66,9 @@ router.patch('/:id', async (req, res) => {
     if (!exercise) return res.status(404).json({ error: 'Exercise not found' });
     res.json(exercise);
   } catch (err) {
+    if (err.code === 11000) {
+      return res.status(409).json({ error: 'An exercise with that name already exists' });
+    }
     res.status(500).json({ error: err.message });
   }
 });

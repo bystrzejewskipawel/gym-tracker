@@ -48,10 +48,12 @@ export const api = {
   // sessions
   getSessions: () => request('/sessions'),
   createSession: (data) => request('/sessions', { method: 'POST', body: JSON.stringify(data) }),
+  updateSession: (id, data) => request(`/sessions/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
   deleteSession: (id) => request(`/sessions/${id}`, { method: 'DELETE' }),
 
   // routines
   getRoutines: () => request('/routines'),
   createRoutine: (data) => request('/routines', { method: 'POST', body: JSON.stringify(data) }),
+  updateRoutine: (id, data) => request(`/routines/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
   deleteRoutine: (id) => request(`/routines/${id}`, { method: 'DELETE' })
 };

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { api } from '../api';
 import { groupItems } from '../sessionUtils.js';
 
@@ -18,6 +18,8 @@ export default function RoutineManager({ exercises, routines, onChanged }) {
   const [items, setItems] = useState([]); // { exerciseId, name, sets, linkNext }
   const [pick, setPick] = useState('');
   const [error, setError] = useState('');
+  const [editingId, setEditingId] = useState(null); // null = creating a new routine
+  const formRef = useRef(null);
 
   const update = (next) => setItems(normalize(next));
 
@@ -39,7 +41,34 @@ export default function RoutineManager({ exercises, routines, onChanged }) {
     update(next);
   };
 
-  const handleCreate = async (e) => {
+  const resetForm = () => {
+    setName('');
+    setItems([]);
+    setPick('');
+    setEditingId(null);
+    setError('');
+  };
+
+  // Loads an existing routine into the builder.
+  const startEdit = (routine) => {
+    const valid = (routine.items || []).filter((i) => i.exercise);
+    setName(routine.name);
+    setItems(
+      normalize(
+        valid.map((i, idx) => ({
+          exerciseId: i.exercise._id,
+          name: i.exercise.name,
+          sets: i.sets,
+          linkNext: i.superset != null && valid[idx + 1]?.superset === i.superset
+        }))
+      )
+    );
+    setEditingId(routine._id);
+    setError('');
+    formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     let group = 0;
@@ -55,9 +84,9 @@ export default function RoutineManager({ exercises, routines, onChanged }) {
     });
 
     try {
-      await api.createRoutine({ name, items: payloadItems });
-      setName('');
-      setItems([]);
+      if (editingId) await api.updateRoutine(editingId, { name, items: payloadItems });
+      else await api.createRoutine({ name, items: payloadItems });
+      resetForm();
       onChanged();
     } catch (err) {
       setError(err.message);
@@ -67,6 +96,7 @@ export default function RoutineManager({ exercises, routines, onChanged }) {
   const handleDelete = async (id) => {
     if (!confirm('Delete this routine?')) return;
     await api.deleteRoutine(id);
+    if (editingId === id) resetForm();
     onChanged();
   };
 
@@ -74,13 +104,13 @@ export default function RoutineManager({ exercises, routines, onChanged }) {
 
   return (
     <div className="card">
-      <h2>Routines</h2>
+      <h2 ref={formRef}>{editingId ? 'Edit routine' : 'Routines'}</h2>
       <p className="muted small">
         A routine sets the exercise order and number of sets. Tick “superset with next” to pair an
         exercise with the one below it: A1 → B1 → rest → A2 → B2 …
       </p>
 
-      <form onSubmit={handleCreate}>
+      <form onSubmit={handleSubmit}>
         <div className="row">
           <input
             placeholder="Routine name (e.g. Push Day)"
@@ -156,9 +186,16 @@ export default function RoutineManager({ exercises, routines, onChanged }) {
         })}
 
         {error && <p className="error">{error}</p>}
-        <button type="submit" disabled={items.length === 0}>
-          Save routine
-        </button>
+        <div className="row" style={{ marginBottom: 0 }}>
+          <button type="submit" disabled={items.length === 0}>
+            {editingId ? 'Save changes' : 'Save routine'}
+          </button>
+          {editingId && (
+            <button type="button" className="ghost" onClick={resetForm}>
+              Cancel
+            </button>
+          )}
+        </div>
       </form>
 
       <ul className="list" style={{ marginTop: 16 }}>
@@ -166,9 +203,14 @@ export default function RoutineManager({ exercises, routines, onChanged }) {
           <li key={r._id} className="routine-item">
             <div className="ex-row-top">
               <strong>{r.name}</strong>
-              <button className="link" onClick={() => handleDelete(r._id)}>
-                delete
-              </button>
+              <span className="actions">
+                <button className="link neutral" onClick={() => startEdit(r)}>
+                  edit
+                </button>
+                <button className="link" onClick={() => handleDelete(r._id)}>
+                  delete
+                </button>
+              </span>
             </div>
             <div className="chips">
               {groupItems((r.items || []).filter((i) => i.exercise)).map((g, gi) => (

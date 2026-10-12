@@ -52,7 +52,7 @@ async function createBlock(exercise, setCount) {
     exerciseId: exercise._id,
     name: exercise.name,
     asymmetrical: !!exercise.asymmetrical,
-    restSeconds: exercise.restSeconds ?? 90,
+    restSeconds: exercise.restSeconds ?? 180,
     prevSets,
     lastDate: last ? last.date : null,
     sets,
@@ -290,6 +290,7 @@ export default function SessionForm({ exercises, routines, onSaved }) {
             </select>
             <button
               type="button"
+              className="row-btn"
               disabled={!routineValue || loading}
               onClick={() => {
                 loadRoutine(routineValue);
@@ -312,6 +313,7 @@ export default function SessionForm({ exercises, routines, onSaved }) {
           </select>
           <button
             type="button"
+            className="row-btn"
             disabled={!pickerValue || loading}
             onClick={() => {
               addExercise(pickerValue);

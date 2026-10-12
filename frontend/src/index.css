@@ -229,3 +229,20 @@ button.icon-btn {
 .rest-timer.green { background: rgba(34, 197, 94, 0.16); border-color: rgba(34, 197, 94, 0.55); color: #4ade80; }
 .rest-timer.amber { background: rgba(245, 158, 11, 0.18); border-color: rgba(245, 158, 11, 0.6); color: #fbbf24; }
 .rest-timer.red { background: rgba(239, 68, 68, 0.2); border-color: rgba(239, 68, 68, 0.65); color: #f87171; }
+
+/* ---------- v3: equal-width row buttons, edit modes ---------- */
+.row-btn { flex: none; width: 84px; padding-left: 0; padding-right: 0; }
+.actions { display: flex; align-items: center; gap: 2px; }
+button.link.neutral { color: var(--accent-text); }
+button.link.neutral:hover:not(:disabled) { background: rgba(124, 92, 255, 0.12); }
+
+.editor {
+  background: var(--surface-2); border: 1px solid var(--accent); border-radius: 14px;
+  padding: 14px; margin-top: 4px;
+}
+.editor-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.edit-ex { border-top: 1px solid var(--border); padding-top: 12px; margin-top: 12px; }
+.edit-ex-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+.edit-set { display: grid; gap: 8px; align-items: center; margin-bottom: 6px; }
+.edit-set input, .edit-set select { min-width: 0; text-align: center; padding: 8px 4px; }
+.edit-form-grid { display: flex; flex-direction: column; gap: 8px; margin: 10px 0; }
