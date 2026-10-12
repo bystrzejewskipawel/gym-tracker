@@ -7,6 +7,14 @@ import History from './components/History.jsx';
 import Progress from './components/Progress.jsx';
 import RoutineManager from './components/RoutineManager.jsx';
 
+const TABS = [
+  { id: 'session', label: 'Session', icon: '🏋️' },
+  { id: 'exercises', label: 'Exercises', icon: '📋' },
+  { id: 'routines', label: 'Routines', icon: '🔁' },
+  { id: 'history', label: 'History', icon: '🕘' },
+  { id: 'progress', label: 'Progress', icon: '📈' }
+];
+
 export default function App() {
   const [authed, setAuthed] = useState(!!getToken());
   const [tab, setTab] = useState('session');
@@ -36,34 +44,19 @@ export default function App() {
 
   return (
     <div className="app">
-      <header>
-        <div className="row space-between">
-          <h1>🏋️ Gym Tracker</h1>
-          <button className="link" onClick={handleLogout}>
-            log out
-          </button>
-        </div>
-        <nav>
-          <button className={tab === 'session' ? 'active' : ''} onClick={() => setTab('session')}>
-            New Session
-          </button>
-          <button className={tab === 'exercises' ? 'active' : ''} onClick={() => setTab('exercises')}>
-            Exercises
-          </button>
-          <button className={tab === 'routines' ? 'active' : ''} onClick={() => setTab('routines')}>
-            Routines
-          </button>
-          <button className={tab === 'history' ? 'active' : ''} onClick={() => setTab('history')}>
-            History
-          </button>
-          <button className={tab === 'progress' ? 'active' : ''} onClick={() => setTab('progress')}>
-            Progress
-          </button>
-        </nav>
+      <header className="topbar">
+        <h1>Gym Tracker</h1>
+        <button className="link" onClick={handleLogout}>
+          log out
+        </button>
       </header>
 
       <main>
-        {tab === 'session' && <SessionForm exercises={exercises} routines={routines} onSaved={bump} />}
+        {/* The session tab stays mounted so an in-progress workout (and its
+            timers) isn't lost when you peek at another tab. */}
+        <div style={{ display: tab === 'session' ? 'block' : 'none' }}>
+          <SessionForm exercises={exercises} routines={routines} onSaved={bump} />
+        </div>
         {tab === 'exercises' && <ExerciseManager exercises={exercises} onChanged={bump} />}
         {tab === 'routines' && (
           <RoutineManager exercises={exercises} routines={routines} onChanged={bump} />
@@ -71,6 +64,19 @@ export default function App() {
         {tab === 'history' && <History exercises={exercises} key={refreshKey} />}
         {tab === 'progress' && <Progress exercises={exercises} />}
       </main>
+
+      <nav className="tabbar">
+        {TABS.map((t) => (
+          <button
+            key={t.id}
+            className={tab === t.id ? 'active' : ''}
+            onClick={() => setTab(t.id)}
+          >
+            <span className="tab-icon">{t.icon}</span>
+            <span>{t.label}</span>
+          </button>
+        ))}
+      </nav>
     </div>
   );
 }

@@ -42,7 +42,12 @@ router.post('/', async (req, res) => {
       resolvedExercises.push({
         exercise: exerciseDoc._id,
         exerciseName: exerciseDoc.name,
-        sets: (ex.sets || []).map((s) => ({ reps: Number(s.reps), weight: Number(s.weight) }))
+        durationSeconds: Math.max(0, Math.round(Number(ex.durationSeconds) || 0)),
+        sets: (ex.sets || []).map((s) => ({
+          reps: Number(s.reps),
+          weight: Number(s.weight) || 0,
+          side: s.side === 'L' || s.side === 'R' ? s.side : undefined
+        }))
       });
     }
 

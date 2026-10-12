@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { api } from '../api';
+import { fmtSet, fmtTime } from '../sessionUtils.js';
 
 export default function History({ exercises }) {
   const [sessions, setSessions] = useState([]);
@@ -29,7 +30,6 @@ export default function History({ exercises }) {
       <h2>Session History</h2>
 
       <div className="row">
-        <label className="muted">Filter by exercise:</label>
         <select value={filterId} onChange={(e) => setFilterId(e.target.value)}>
           <option value="">All exercises</option>
           {exercises.map((ex) => (
@@ -43,17 +43,21 @@ export default function History({ exercises }) {
       <ul className="list">
         {visible.map((session) => (
           <li key={session._id} className="session-item">
-            <div className="row space-between">
+            <div className="row space-between" style={{ marginBottom: 4 }}>
               <strong>{new Date(session.date).toLocaleString()}</strong>
               <button className="link" onClick={() => handleDelete(session._id)}>
                 delete
               </button>
             </div>
             {session.notes && <p className="muted small">{session.notes}</p>}
-            <ul>
+            <ul className="history-sets">
               {session.exercises.map((e, i) => (
                 <li key={i}>
-                  {e.exerciseName}: {e.sets.map((s) => `${s.reps}x${s.weight}kg`).join(', ')}
+                  <strong>{e.exerciseName}</strong>
+                  {e.durationSeconds ? (
+                    <span className="muted small"> · {fmtTime(e.durationSeconds)}</span>
+                  ) : null}
+                  <div className="muted">{e.sets.map(fmtSet).join(', ')}</div>
                 </li>
               ))}
             </ul>

@@ -75,13 +75,13 @@ export default function Progress({ exercises }) {
         <div style={{ width: '100%', height: 300 }}>
           <ResponsiveContainer>
             <LineChart data={chartData} margin={{ top: 8, right: 16, left: 0, bottom: 8 }}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="date" tick={{ fontSize: 12 }} />
-              <YAxis tick={{ fontSize: 12 }} />
-              <Tooltip />
-              <Legend />
-              <Line type="monotone" dataKey="Max weight (kg)" stroke="#2b6cff" strokeWidth={2} />
-              <Line type="monotone" dataKey="Total volume (kg)" stroke="#ff8a2b" strokeWidth={2} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#262d3f" />
+              <XAxis dataKey="date" tick={{ fontSize: 12, fill: '#8b93a7' }} stroke="#262d3f" />
+              <YAxis tick={{ fontSize: 12, fill: '#8b93a7' }} stroke="#262d3f" />
+              <Tooltip contentStyle={{ background: '#141821', border: '1px solid #262d3f', borderRadius: 10, color: '#e8ebf2' }} />
+              <Legend wrapperStyle={{ color: '#8b93a7' }} />
+              <Line type="monotone" dataKey="Max weight (kg)" stroke="#a994ff" strokeWidth={2} />
+              <Line type="monotone" dataKey="Total volume (kg)" stroke="#22d3ee" strokeWidth={2} />
             </LineChart>
           </ResponsiveContainer>
         </div>

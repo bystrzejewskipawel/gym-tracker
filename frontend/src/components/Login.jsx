@@ -26,7 +26,7 @@ export default function Login({ onLoggedIn }) {
   return (
     <div className="app">
       <div className="card" style={{ marginTop: 60 }}>
-        <h1 style={{ marginTop: 0 }}>🏋️ Gym Tracker</h1>
+        <h1 style={{ marginTop: 0 }}>Gym Tracker</h1>
         <h2>{mode === 'login' ? 'Log in' : 'Create an account'}</h2>
         <form onSubmit={handleSubmit}>
           <div className="row">
@@ -58,7 +58,7 @@ export default function Login({ onLoggedIn }) {
           <button
             type="button"
             className="link"
-            style={{ color: '#2b6cff' }}
+            style={{ color: 'var(--accent-text)' }}
             onClick={() => {
               setError('');
               setMode(mode === 'login' ? 'register' : 'login');

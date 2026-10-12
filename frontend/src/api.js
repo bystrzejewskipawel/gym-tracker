@@ -41,7 +41,9 @@ export const api = {
   getExercises: () => request('/exercises'),
   createExercise: (data) => request('/exercises', { method: 'POST', body: JSON.stringify(data) }),
   deleteExercise: (id) => request(`/exercises/${id}`, { method: 'DELETE' }),
-  getExerciseHistory: (id) => request(`/exercises/${id}/history`),
+  updateExercise: (id, data) => request(`/exercises/${id}`, { method: 'PATCH', body: JSON.stringify(data) }),
+  getExerciseHistory: (id, limit) =>
+    request(`/exercises/${id}/history${limit ? `?limit=${limit}` : ''}`),
 
   // sessions
   getSessions: () => request('/sessions'),
