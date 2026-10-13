@@ -7,7 +7,8 @@ export function fmtTime(totalSeconds) {
 }
 
 export function fmtSet(s) {
-  return `${s.reps}×${s.weight}kg${s.side ? ` (${s.side})` : ''}`;
+  const load = s.weight < 0 ? `${Math.abs(s.weight)}kg assist` : `${s.weight}kg`;
+  return `${s.reps}×${load}${s.side ? ` (${s.side})` : ''}`;
 }
 
 // Groups routine items into display/session units: two adjacent items that

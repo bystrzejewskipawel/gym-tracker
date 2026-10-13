@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const setSchema = new mongoose.Schema(
   {
     reps: { type: Number, required: true, min: 0 },
-    weight: { type: Number, required: true, min: 0 },
+    weight: { type: Number, required: true }, // negative = assistance (assisted pull-ups, dips)
     side: { type: String, enum: ['L', 'R'] }
   },
   { _id: false }

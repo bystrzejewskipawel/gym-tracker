@@ -165,6 +165,46 @@ down to only your frontend instead of allowing any origin.
 Now the same app + data is reachable from your phone, laptop, or anyone
 else's device — just by opening the Vercel URL and logging in.
 
+## Importing existing progress from a spreadsheet
+
+A one-off importer reads a CSV export of your sheet and adds it to your account **through the API**
+(so it works against the deployed Render backend, or a local one). The data ends up in MongoDB Atlas,
+Render only hosts the API in front of it.
+
+1. Export the sheet: *File > Download > Comma-separated values (.csv)*.
+2. Put the file in `backend/scripts/data/` (CSV files there are git-ignored, so your data is not committed).
+3. **Dry run** (default; offline, nothing is written):
+   ```bash
+   cd backend
+   node scripts/import-sheet.js scripts/data/gym.csv
+   ```
+   Check the list of sessions and exercises, the exercises marked `[one-sided]`, and the warnings.
+   Fix anything in the CSV and repeat until it looks right.
+4. **Import for real** (use the same email/password as in the app):
+   ```bash
+   # macOS / Linux
+   API_URL=https://your-api.onrender.com GYM_EMAIL=you@example.com GYM_PASSWORD='your password' \
+     node scripts/import-sheet.js scripts/data/gym.csv --commit
+   ```
+   ```powershell
+   # Windows PowerShell
+   $env:API_URL="https://your-api.onrender.com"; $env:GYM_EMAIL="you@example.com"; $env:GYM_PASSWORD="your password"
+   node scripts/import-sheet.js scripts/data/gym.csv --commit
+   ```
+   The first call can take up to a minute if the free Render service is asleep.
+
+How rows are read: one row = one exercise on one date; each `seria`/`set` column is a set (empty = not done).
+Sessions are created per date (dated at noon, no duration). The muscle column becomes the exercise category.
+Exercises are matched by name, so existing ones are reused. A muscle label containing left/right (or
+`lewy`/`prawy`, or a `side` column) makes the exercise one-sided and merges both sides into one entry with
+L/R sets. Weights: `50kg` is 50, `2x18kg` is 18 (per dumbbell), a negative number such as `-32` is assistance,
+an empty weight is 0, `(30kg)12` / `12(60kg)` set the weight for that one set, `12+` is read as 12, and text such as
+`(1 pulley)` goes to the session notes. Slash dates are read as month/day (add `--dmy` for day/month).
+Re-running is safe: dates that were already imported are skipped. New exercises get the default rest time (180 s).
+
+Negative weights are supported everywhere in the app for assisted exercises: -27 beats -32, and the Progress
+chart rises as the assistance drops (volume is hidden for those exercises).
+
 ## How the data model works
 
 - **User**: `{ email, passwordHash }`.

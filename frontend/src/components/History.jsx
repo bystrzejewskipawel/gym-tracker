@@ -182,8 +182,6 @@ function SessionEditor({ session, exercises, onCancel, onSaved }) {
                 />
                 <input
                   type="number"
-                  inputMode="decimal"
-                  min="0"
                   step="0.5"
                   value={s.weight}
                   onChange={(e) => patchSet(i, si, { weight: e.target.value })}

@@ -25,8 +25,8 @@ async function resolveExercises(exercises, userId, allowMissing) {
       weight: Number(s.weight) || 0,
       side: s.side === 'L' || s.side === 'R' ? s.side : undefined
     }));
-    if (sets.some((s) => !Number.isFinite(s.reps) || s.reps < 0 || s.weight < 0)) {
-      return { error: 'Reps and weight must be valid, non-negative numbers' };
+    if (sets.some((s) => !Number.isFinite(s.reps) || s.reps < 0)) {
+      return { error: 'Reps must be a valid, non-negative number' };
     }
 
     resolved.push({

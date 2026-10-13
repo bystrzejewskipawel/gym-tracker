@@ -1,0 +1,430 @@
+dzien,miesien,exercise,ciezar,seria1,seria2,seria3
+6/21/2026,klatka,Chest Fly,50kg,12+,12+,12
+6/21/2026,plecy,T-Bar Row Machine,25kg,12+,12+,13
+6/21/2026,klatka gora,Dumbell Press Incline Bench 30,2x18kg,10,9,8
+6/21/2026,biceps,Dumbell Curl Incline Bench 45,2x12kg,12,10,9
+6/21/2026,plecy,Assisted Pullups,-32,12,10,10
+6/21/2026,klatka triceps,Assisted Dips,-32,12,10,10
+6/21/2026,bark srodek prawy,Cable Lateral Raise (R),11,10,10,9
+6/21/2026,bark srodek lewy,Cable Lateral Raise (L),11,9,9,8
+6/21/2026,klatka,Cable Chest Fly,32,11,10,9
+6/21/2026,biceps,Preacher Curl Machine,35kg,12+,12,10
+6/21/2026,triceps,Bar Cable Pressdown,25kg,10,10,7
+6/21/2026,plecy,Wide-Grip Lat Pulldown,25kg,10,,
+6/21/2026,biceps,Bayesian Curl,25kg,12+,12+,(30kg)12
+6/21/2026,triceps,Overhead Cable Extensions,25kg,12+,12+,(30kg)12+
+6/21/2026,abs,ABS Machine,47kg,21+,,
+6/22/2026,plecy,Barbell Rows,20kg,12+,(30kg)12+,(35kg)12
+6/22/2026,lydki,Barbell Calf Raises,20kg,12+,(30kg)12+,(30kg)12+
+6/22/2026,plecy,Wide-Grip Lat Pulldown,50kg,12+,12(60kg),10(60kg)
+6/22/2026,nogi,Barbell Squats,30kg,12+,12,
+6/22/2026,plecy,Cable Row,60kg,12,8,9
+6/24/2026,klatka,Chest Fly,54kg,12+,12+,11
+6/24/2026,biceps,Dumbell Curl Incline Bench 45,2x12kg,12+,11,12
+6/24/2026,klatka gora,Dumbell Press Incline Bench 30,2x18kg,11,8,9
+6/24/2026,barki,Overhead Press Smith Machine,2x7.5kg,12,9,7
+6/24/2026,biceps,Preacher Curl Machine,40kg,12+,10,7
+6/24/2026,plecy,Assisted Pullups,-32,12,11,11
+6/24/2026,klatka triceps,Assisted Dips,-32,12+,12,12
+6/24/2026,bark srodek prawy,Cable Lateral Raise (R),11,10,10,9
+6/24/2026,bark srodek lewy,Cable Lateral Raise (L),11,10,9,8
+6/24/2026,barki tyl,Reverse Cable Crossover,9,11,10,9
+6/24/2026,triceps,Bar Cable Pressdown,40kg,12,10,
+6/24/2026,abs,ABS Cable Pulldown,35kg,12,,
+6/24/2026,triceps,Overhead Cable Extensions,40kg,11,12,
+6/24/2026,biceps,Barbell Overhand Curl,20kg,12,(25kg)12,
+6/24/2026,abs,ABS Decline Crunch,15kg,12,,
+6/24/2026,abs,ABS Machine,54kg,12,,
+6/28/2026,klatka,Chest Fly,56kg,12+,11,7
+6/28/2026,klatka gora,Dumbell Press Incline Bench 30,2x18kg,8,8,8
+6/28/2026,biceps,Dumbell Curl Incline Bench 45,2x14kg,10,9,8
+6/28/2026,barki,Overhead Press Smith Machine,2x7.5kg,12,11,
+6/28/2026,biceps,Preacher Curl Machine,40kg,9,7,8
+6/28/2026,plecy,Assisted Pullups,-32,12,12,12
+6/28/2026,klatka triceps,Assisted Dips,-32,12,12,12
+6/28/2026,bark srodek prawy,Cable Lateral Raise (R),11,11,10,10
+6/28/2026,bark srodek lewy,Cable Lateral Raise (L),11,11,10,10
+6/28/2026,barki tyl,Reverse Cable Crossover,9,10,13,12
+6/28/2026,triceps,Bar Cable Pressdown,40kg,12+,12+,(45kg)12+
+6/28/2026,triceps,Overhead Cable Extensions,40kg,(45kg)8,10,10
+6/28/2026,biceps,Barbell Overhand Curl,25kg,10,10,7
+6/28/2026,abs,ABS Reverse Crunch,,13,,
+6/28/2026,abs,ABS Machine,54kg,8,,
+6/29/2026,lydki,Barbell Calf Raises,2x15kg,12+,(2x26kg)12+,(2x26kg)12+
+6/29/2026,plecy,T-Bar Row Machine,30kg,12+,12+,11
+6/29/2026,nogi,Squat Machine,2x20kg,12+,(2x25kg)12,
+6/29/2026,plecy,Wide-Grip Lat Pulldown,55kg,12+,(60kg)12+,(65kg)12
+6/29/2026,plecy,Reverse Fly,36kg,12+,(41kg)12+,(45kg)12
+6/29/2026,plecy,Straight Arm Lat Pulldown,50kg,12+,(55kg)11,11
+6/29/2026,plecy,Cable Row,60kg,11,12,9
+6/29/2026,abs,ABS Reverse Crunch,,14,,
+6/29/2026,barki tyl,Cable Face Pull,25kg,12+,(30kg)12+,(35kg)16+
+7/2/2026,plecy,T-Bar Row Machine,35kg,12,11,
+7/2/2026,klatka,Chest Fly,56kg,12,10,8
+7/2/2026,biceps,Dumbell Curl Incline Bench 45,2x14kg,11,8,8
+7/2/2026,klatka gora,Dumbell Press Incline Bench 30,2x18kg,10,8,7
+7/2/2026,plecy,Assisted Pullups,-27,11,7,6
+7/2/2026,klatka triceps,Assisted Dips,-27,11,9,8
+7/2/2026,barki,Overhead Press Smith Machine,2x8.75kg,5,6,5
+7/2/2026,biceps,Preacher Curl Machine,35kg,10,7,
+7/2/2026,bark srodek prawy,Cable Lateral Raise (R),11,12,8,7
+7/2/2026,bark srodek lewy,Cable Lateral Raise (L),11,12,8,7
+7/2/2026,triceps,Overhead Cable Extensions,36,11,9,
+7/2/2026,abs,ABS Reverse Crunch,,16,,
+7/5/2026,klatka,Chest Fly,56kg,12+,11,9
+7/5/2026,biceps,Dumbell Curl Incline Bench 45,2x14kg,12,9,8
+7/5/2026,klatka gora,Dumbell Press Incline Bench 30,2x18kg,11,8,8
+7/5/2026,plecy,Assisted Pullups,-27,12,9,8
+7/5/2026,klatka triceps,Assisted Dips,-27,12,11,10
+7/5/2026,bark srodek prawy,Cable Lateral Raise (R),11,11,12,10
+7/5/2026,bark srodek lewy,Cable Lateral Raise (L),11,11,10,10
+7/5/2026,barki tyl,Reverse Cable Crossover,9,10,13,
+7/5/2026,barki,Overhead Press Smith Machine,2x8.75kg,8,8,6
+7/5/2026,plecy,T-Bar Row Machine,35kg,12,10,
+7/5/2026,triceps,Bar Cable Pressdown,25kg (1 kolowrotek),11,11,
+7/5/2026,biceps,Preacher Curl Machine,35kg,10,6,5
+7/5/2026,plecy,Wide-Grip Lat Pulldown,65kg,9,,
+7/9/2026,klatka,Chest Fly,59kg,12+,11,9
+7/9/2026,biceps,Dumbell Curl Incline Bench 45,2x14kg,11,10,8
+7/9/2026,klatka gora,Dumbell Press Incline Bench 30,2x18kg,11,10,8
+7/9/2026,plecy,T-Bar Row Machine,35kg,12,10,9
+7/9/2026,barki,Overhead Press Smith Machine,2x8.75kg,12,7,6
+7/9/2026,plecy,Assisted Pullups,-27,12,9,7
+7/9/2026,klatka triceps,Assisted Dips,-27,12,9,7
+7/9/2026,bark srodek prawy,Cable Lateral Raise (R),11,12,10,8
+7/9/2026,bark srodek lewy,Cable Lateral Raise (L),11,12,10,8
+7/9/2026,barki tyl,Reverse Cable Crossover,9,10,11,
+7/9/2026,biceps,Preacher Curl Machine,35kg,11,7,6
+7/9/2026,triceps,Bar Cable Pressdown,25kg (1 kolowrotek),12,11,
+7/9/2026,plecy,Cable Row,60kg,11,11,
+7/9/2026,triceps,Overhead Cable Extensions,40kg (3 kolowrotki),12,8,
+7/12/2026,klatka,Chest Fly,61kg,12,11,8
+7/12/2026,biceps,Dumbell Curl Incline Bench 45,2x14kg,11,8,8
+7/12/2026,klatka gora,Dumbell Press Incline Bench 30,2x18kg,12,7,7
+7/12/2026,plecy,Assisted Pullups,-27,12,11,8
+7/12/2026,klatka triceps,Assisted Dips,-27,12,11,8
+7/12/2026,barki,Overhead Press Smith Machine,2x8.75kg,8,6,7
+7/12/2026,bark srodek prawy,Cable Lateral Raise (R),11,11,10,9
+7/12/2026,bark srodek lewy,Cable Lateral Raise (L),11,11,10,9
+7/12/2026,barki tyl,Reverse Cable Crossover,9,11,12,
+7/12/2026,biceps,Preacher Curl Machine,35kg,12,9,7
+7/12/2026,triceps,Bar Cable Pressdown,25kg (1 kolowrotek),12,11,
+7/12/2026,biceps,Barbell Overhand Curl,25kg,10,12,
+7/12/2026,triceps,Overhead Cable Extensions,40kg (3 kolowrotki),11,11,
+7/13/2026,plecy,T-Bar Row Machine,35kg,12+,12,13
+7/13/2026,plecy,Wide-Grip Lat Pulldown,60kg,10,12,11
+7/13/2026,plecy,Cable Row,60kg,12,12,10
+7/13/2026,plecy,Straight Arm Lat Pulldown,30kg(1kolo),10,9,7
+7/13/2026,barki,Barbell Upright Row,25kg,12,,
+7/13/2026,barki tyl,Cable Face Pull,41kg,12+,12+,(35kg)16+
+7/13/2026,plecy,Reverse Fly,47kg,12,10,
+7/13/2026,plecy,Shrugs,2x20kg,12+,(22kg)12+,(26kg)12+
+7/16/2026,klatka,Chest Fly,61kg,12+,12,10
+7/16/2026,plecy,T-Bar Row Machine,36.25kg,12,12,12
+7/16/2026,biceps,Dumbell Curl Incline Bench 45,2x14kg,10,8,7
+7/16/2026,klatka gora,Dumbell Press Incline Bench 30,2x18kg,12,10,9
+7/16/2026,plecy,Assisted Pullups,-27,12,11,8
+7/16/2026,klatka triceps,Assisted Dips,-27,12,11,9
+7/16/2026,bark srodek prawy,Cable Lateral Raise (R),11,12,12,14
+7/16/2026,bark srodek lewy,Cable Lateral Raise (L),11,12,12,12
+7/16/2026,barki tyl,Reverse Cable Crossover,9,12,12,
+7/16/2026,biceps,Preacher Curl Machine,35kg,12+,9,7
+7/16/2026,barki,Overhead Press Smith Machine,2x8.75kg,12,10,8
+7/16/2026,triceps,Bar Cable Pressdown,45kg (3 kolowrotek),13,12,
+7/16/2026,plecy,Wide-Grip Lat Pulldown,60kg,14,11,
+7/16/2026,biceps,Barbell Overhand Curl,25kg,10,8,
+7/16/2026,triceps,Overhead Cable Extensions,40kg (3 kolowrotki),10,10,
+7/21/2026,klatka,Chest Fly,63kg,8,7,
+7/21/2026,plecy,Cable Row,57g,12+,11,
+7/21/2026,biceps,Dumbell Curl Incline Bench 45,2x14kg,10,8,
+7/21/2026,klatka gora,Dumbell Press Incline Bench 30,2x18kg,11,8,
+7/21/2026,plecy,Assisted Pullups,-27,11,11,
+7/21/2026,klatka triceps,Assisted Dips,-27,8,11,
+7/21/2026,bark srodek prawy,Cable Lateral Raise (R),14,8,(11kg)9,(11kg)8
+7/21/2026,bark srodek lewy,Cable Lateral Raise (L),14,6,(11kg)8,(11kg)6
+7/21/2026,biceps,Preacher Curl Machine,43kg,11,9,
+7/21/2026,barki,Overhead Press Smith Machine,2x8.75kg,11,8,5
+7/21/2026,plecy,Wide-Grip Lat Pulldown,57kg,11,11,
+7/21/2026,biceps,Barbell Overhand Curl,25kg,12,8,
+7/21/2026,triceps,Overhead Cable Extensions,32kg (2 kolowrotki),11,10,
+7/26/2026,klatka,Chest Fly,61kg,10,9,
+7/26/2026,plecy,Cable Row,57g,12,11,
+7/26/2026,biceps,Dumbell Curl Incline Bench 45,2x14kg,12,9,
+7/26/2026,klatka gora,Dumbell Press Incline Bench 30,2x18kg,12,9,
+7/26/2026,plecy,Assisted Pullups,-28.13,12,(-25kg)9,
+7/26/2026,klatka triceps,Assisted Dips,-28.13,12,(-25kg)8,
+7/26/2026,bark srodek prawy,Cable Lateral Raise (R),5,12,12,12
+7/26/2026,bark srodek lewy,Cable Lateral Raise (L),5,12,12,12
+7/26/2026,biceps,Preacher Curl Machine,25kg,12,9,
+7/26/2026,triceps,Bar Cable Pressdown,21.25kg (2 kolowrotki),16,(25kg)10,
+7/26/2026,plecy,Wide-Grip Lat Pulldown,57kg,16,12,
+7/26/2026,barki,Overhead Press Smith Machine,2x8.75kg,10,5,4
+7/26/2026,biceps,Dumbell Overhand Curl,2x12kg,12,8,
+7/29/2026,klatka,Chest Fly,61kg,11,9,
+7/29/2026,biceps,Dumbell Curl Incline Bench 45,2x14kg,12,10,
+7/29/2026,klatka gora,Dumbell Press Incline Bench 30,2x18kg,11,9,
+7/29/2026,plecy,Assisted Pullups,-25,9,10,
+7/29/2026,klatka triceps,Assisted Dips,-25,10,9,
+7/29/2026,plecy,Cable Row,57g,12+,11,
+7/29/2026,bark srodek prawy,Cable Lateral Raise (R),6.25kg,10,10,12
+7/29/2026,bark srodek lewy,Cable Lateral Raise (L),6.25kg,10,9,9
+7/29/2026,barki tyl,Reverse Cable Crossover,3.75kg,12,12,
+7/29/2026,biceps,Preacher Curl Machine,25kg,15,11,
+7/29/2026,barki,Overhead Press Smith Machine,2x8.75kg,11,9,6
+7/29/2026,triceps,Overhead Cable Extensions,25kg (2 kolowrotki),11,9,
+7/29/2026,plecy,Undergrip Lat Pulldown,2x30kg,15,11,
+7/29/2026,biceps,Barbell Overhand Curl,2x7.5kg,12,10,
+8/2/2026,plecy,T-Bar Row Machine,37.5kg,12,12,
+8/2/2026,klatka,Chest Fly,61kg,15,12,
+8/2/2026,biceps,Dumbell Curl Incline Bench 45,2x14kg,10,9,
+8/2/2026,klatka gora,Dumbell Press Incline Bench 30,2x18kg,12,10,
+8/2/2026,plecy,Assisted Pullups,-23,12,10,
+8/2/2026,klatka triceps,Assisted Dips,-23,12,9,
+8/2/2026,plecy,Cable Row,60kg,12,10,
+8/2/2026,bark srodek prawy,Cable Lateral Raise (R),11,12,13,12
+8/2/2026,bark srodek lewy,Cable Lateral Raise (L),11,12,13,12
+8/2/2026,barki tyl,Reverse Cable Crossover,9,12,10,
+8/2/2026,barki,Overhead Press Smith Machine,2x8.75kg,12,10,5
+8/2/2026,biceps,Preacher Curl Machine,35kg,13,10,
+8/2/2026,triceps,Overhead Cable Extensions,40kg (3 kolowrotki),12,9,
+8/2/2026,plecy,Undergrip Lat Pulldown,60kg,13,11,
+8/2/2026,biceps,Barbell Overhand Curl,2x7.5kg,12,10,
+8/6/2026,klatka,Chest Fly,64kg,12,12,
+8/6/2026,biceps,Dumbell Curl Incline Bench 45,2x14kg,12,10,
+8/6/2026,klatka gora,Dumbell Press Incline Bench 30,2x18kg,12,12,
+8/6/2026,plecy,Assisted Pullups,-23,12,11,
+8/6/2026,klatka triceps,Assisted Dips,-23,12,11,
+8/6/2026,bark srodek prawy,Cable Lateral Raise (R),14,13,11,10
+8/6/2026,bark srodek lewy,Cable Lateral Raise (L),14,12,10,9
+8/6/2026,biceps,Preacher Curl Machine,37.5kg,12,10,
+8/6/2026,barki tyl,Reverse Cable Crossover,9,16,15,
+8/6/2026,plecy,T-Bar Row Machine,40kg,11,9,
+8/6/2026,triceps,Overhead Cable Extensions,40kg (3 kolowrotki),15,15,
+8/6/2026,plecy,Straight Arm Lat Pulldown,40kg (3 kolowrotki),15,(50kg)9,
+8/6/2026,barki,Overhead Press Smith Machine,2x8.75kg,12,8,7
+8/6/2026,plecy,Undergrip Lat Pulldown,60kg,14,(65kg)11,
+8/6/2026,triceps,Bar Cable Pressdown,40kg (3 kolowrotki),13,(45kg)13,
+8/6/2026,biceps,Barbell Overhand Curl,25kg,11,10,
+8/9/2026,klatka,Chest Fly,66kg,12,9,
+8/9/2026,plecy,T-Bar Row Machine,37.5kg,12,9,
+8/9/2026,biceps,Dumbell Curl Incline Bench 45,2x14kg,9,10,
+8/9/2026,klatka gora,Dumbell Press Incline Bench 30,2x18kg,12,10,
+8/9/2026,plecy,Assisted Pullups,-23,12,9,
+8/9/2026,klatka triceps,Assisted Dips,-23,12,9,
+8/9/2026,bark srodek prawy,Cable Lateral Raise (R),14,11,10,10
+8/9/2026,bark srodek lewy,Cable Lateral Raise (L),14,9,8,8
+8/9/2026,barki tyl,Reverse Cable Crossover,11,9,9,
+8/9/2026,biceps,Preacher Curl Machine,37.5kg,11,7,
+8/9/2026,barki,Overhead Press Smith Machine,2x8.75kg,12,10,7
+8/9/2026,plecy,Undergrip Lat Pulldown,65kg,13,11,
+8/9/2026,triceps,Overhead Cable Extensions,45kg (3 kolowrotki),10,9,
+8/9/2026,biceps,Barbell Overhand Curl,25kg,12,10,
+8/13/2026,klatka,Chest Fly,66kg,11,8,
+8/13/2026,biceps,Dumbell Curl Incline Bench 45,2x14kg,12,10,
+8/13/2026,klatka gora,Dumbell Press Incline Bench 30,2x18kg,12,11,
+8/13/2026,plecy,Assisted Pullups,-23,12,10,
+8/13/2026,klatka triceps,Assisted Dips,-23,11,11,
+8/13/2026,plecy,T-Bar Row Machine,37.5kg,8,8,
+8/13/2026,bark srodek prawy,Cable Lateral Raise (R),14,12,12,10
+8/13/2026,bark srodek lewy,Cable Lateral Raise (L),14,12,11,8
+8/13/2026,barki tyl,Reverse Cable Crossover,11,8,9,
+8/13/2026,biceps,Preacher Curl Machine,37.5kg,11,8,
+8/13/2026,barki,Overhead Press Smith Machine,2x8.75kg,12,12,8
+8/13/2026,plecy,Undergrip Lat Pulldown,65kg,12,9,
+8/13/2026,triceps,Overhead Cable Extensions,45kg (3 kolowrotki),13,(50kg)8,
+8/13/2026,biceps,Barbell Overhand Curl,25kg,12,10,
+8/16/2026,klatka,Chest Fly,66kg,11,9,
+8/16/2026,biceps,Dumbell Curl Incline Bench 45,2x14kg,12,10,
+8/16/2026,klatka gora,Dumbell Press Incline Bench 30,2x18kg,12,11,
+8/16/2026,plecy,Assisted Pullups,-23,12,12,
+8/16/2026,klatka triceps,Assisted Dips,-23,12,11,
+8/16/2026,bark srodek prawy,Cable Lateral Raise (R),14,12,12,11
+8/16/2026,bark srodek lewy,Cable Lateral Raise (L),14,12,11,9
+8/16/2026,barki tyl,Reverse Cable Crossover,11,9,9,
+8/16/2026,biceps,Preacher Curl Machine,37.5kg,10,9,
+8/16/2026,barki,Overhead Press Smith Machine,2x10kg,11,8,7
+8/16/2026,plecy,T-Bar Row Machine,37.5kg,11,11,
+8/16/2026,plecy,Undergrip Lat Pulldown,65kg,12,11,
+8/16/2026,triceps,Bar Cable Pressdown,50kg (3 kolowrotki),13,(55kg)9,
+8/16/2026,biceps,Hammer Curl,2x14kg,9,8,
+8/16/2026,plecy,Straight Arm Lat Pulldown,40kg (3 kolowrotki),15,(50kg)9,
+8/16/2026,triceps,Overhead Cable Extensions,45kg (3 kolowrotki),10,8,
+8/20/2026,klatka,Chest Fly,68kg,9,9,
+8/20/2026,biceps,Dumbell Curl Incline Bench 45,2x14kg,11,10,9
+8/20/2026,klatka gora,Dumbell Press Incline Bench 30,2x20kg,9,8,6
+8/20/2026,plecy,Assisted Pullups,-18kg,11,9,
+8/20/2026,klatka triceps,Assisted Dips,-18kg,11,8,
+8/20/2026,bark srodek prawy,Cable Lateral Raise (R),14,12,12,12
+8/20/2026,bark srodek lewy,Cable Lateral Raise (L),14,12,12,10
+8/20/2026,barki tyl,Reverse Cable Crossover,11,10,10,
+8/20/2026,biceps,Preacher Curl Machine,37.5kg,12,8,7
+8/20/2026,barki,Overhead Press Smith Machine,2x10kg,12,9,8
+8/20/2026,plecy,T-Bar Row Machine,37.5kg,12,11,
+8/20/2026,triceps,Bar Cable Pressdown,55kg (3 kolowrotki),9,8,
+8/20/2026,biceps,Hammer Curl,2x14kg,10,11,9
+8/20/2026,triceps,Overhead Cable Extensions,45kg (3 kolowrotki),10,9,
+8/23/2026,klatka,Chest Fly,68kg,12,9,
+8/23/2026,biceps,Dumbell Curl Incline Bench 45,2x14kg,12,9,9
+8/23/2026,klatka gora,Dumbell Press Incline Bench 30,2x20kg,10,9,6
+8/23/2026,plecy,Assisted Pullups,-18kg,11,9,
+8/23/2026,klatka triceps,Assisted Dips,-18kg,10,9,
+8/23/2026,bark srodek prawy,Cable Lateral Raise (R),14,12,12,12
+8/23/2026,bark srodek lewy,Cable Lateral Raise (L),14,12,11,10
+8/23/2026,barki tyl,Reverse Cable Crossover,11,7,8,
+8/23/2026,biceps,Preacher Curl Machine,37.5kg,12,8,7
+8/23/2026,barki,Overhead Press Smith Machine,2x10kg,12,8,9
+8/23/2026,triceps,Bar Cable Pressdown,55kg (3 kolowrotki),6,12,
+8/23/2026,biceps,Hammer Curl,2x14kg,12,11,9
+9/3/2026,klatka,Chest Fly,70kg,8,8,
+9/3/2026,biceps,Dumbell Curl Incline Bench 45,2x14kg,12,10,8
+9/3/2026,klatka gora,Dumbell Press Incline Bench 30,2x20kg,10,9,7
+9/3/2026,plecy,Assisted Pullups,-18kg,12,9,
+9/3/2026,klatka triceps,Assisted Dips,-18kg,12,9,
+9/3/2026,bark srodek prawy,Cable Lateral Raise (R),14,12,12,12
+9/3/2026,bark srodek lewy,Cable Lateral Raise (L),14,12,11,9
+9/3/2026,barki tyl,Reverse Cable Crossover,11,10,11,
+9/3/2026,biceps,Preacher Curl Machine,38.75kg,12,8,
+9/3/2026,barki,Overhead Press Machine,29kg,11,9,6
+9/3/2026,biceps,Hammer Curl,2x14kg,11,9,
+9/3/2026,triceps,Bar Cable Pressdown,25kg (kolow),11,11,
+9/3/2026,plecy,Wide-Grip Lat Pulldown,65kg,11,11,
+9/6/2026,klatka,Chest Fly,70kg,12,8,
+9/6/2026,biceps,Dumbell Curl Incline Bench 45,2x14kg,12,10,9
+9/6/2026,klatka gora,Dumbell Press Incline Bench 30,2x20kg,11,9,9
+9/6/2026,plecy,Assisted Pullups,-18kg,12,10,
+9/6/2026,klatka triceps,Assisted Dips,-18kg,12,10,
+9/6/2026,bark srodek prawy,Cable Lateral Raise (R),16,12,10,9
+9/6/2026,bark srodek lewy,Cable Lateral Raise (L),16,11,9,7
+9/6/2026,barki tyl prawy,Reverse Cable Fly (R),14,14,14,
+9/6/2026,barki tyl lewy,Reverse Cable Fly (L),14,8,8,
+9/6/2026,biceps,Preacher Curl Machine,40kg,11,6,
+9/6/2026,barki,Overhead Dumbell Press,2x14kg,13,9,6
+9/6/2026,plecy,Wide-Grip Lat Pulldown,65kg,13,11,
+9/6/2026,triceps,Bar Cable Pressdown,25kg (kolow),13,11,
+9/6/2026,biceps,Hammer Curl,2x14kg,9,9,
+9/10/2026,klatka,Chest Fly,70kg,9,8,
+9/10/2026,biceps,Dumbell Curl Incline Bench 45,2x14kg,12,11,9
+9/10/2026,klatka gora,Dumbell Press Incline Bench 30,2x20kg,11,10,9
+9/10/2026,plecy,Assisted Pullups,-14kg,10,8,
+9/10/2026,klatka triceps,Assisted Dips,-14kg,9,7,
+9/10/2026,bark srodek prawy,Cable Lateral Raise (R),16,12,12,10
+9/10/2026,bark srodek lewy,Cable Lateral Raise (L),16,12,11,8
+9/10/2026,barki tyl prawy,Reverse Cable Fly (R),16,8,14(14),
+9/10/2026,barki tyl lewy,Reverse Cable Fly (L),14,8,9,
+9/10/2026,biceps,Preacher Curl Machine,40kg,12,8,
+9/10/2026,barki,Overhead Press Smith Machine,2x10kg,12,10,8
+9/10/2026,plecy,Wide-Grip Lat Pulldown,70kg,13,10,
+9/10/2026,triceps,Bar Cable Pressdown,25kg (kolow),12,12,
+9/10/2026,biceps,Hammer Curl,2x14kg,10,9,
+9/13/2026,klatka,Chest Fly,70kg,10,8,
+9/13/2026,biceps,Dumbell Curl Incline Bench 45,2x14kg,12,11,10
+9/13/2026,klatka gora,Dumbell Press Incline Bench 30,2x20kg,12,10,10
+9/13/2026,plecy,Assisted Pullups,-14kg,11,10,
+9/13/2026,klatka triceps,Assisted Dips,-14kg,11,9,
+9/13/2026,bark srodek prawy,Cable Lateral Raise (R),16,11,10,9
+9/13/2026,bark srodek lewy,Cable Lateral Raise (L),16,10,9,8
+9/13/2026,barki tyl prawy,Reverse Cable Fly (R),14,9,11,
+9/13/2026,barki tyl lewy,Reverse Cable Fly (L),14,8,9,
+9/13/2026,biceps,Preacher Curl Machine,40kg,12,9,
+9/13/2026,barki,Overhead Press Smith Machine,2x10kg,12,11,8
+9/13/2026,plecy,Wide-Grip Lat Pulldown,70kg,14,11,
+9/13/2026,triceps,Bar Cable Pressdown,25kg (kolow),12,12,
+9/13/2026,biceps,Hammer Curl,2x14kg,10,9,
+9/17/2026,klatka,Chest Fly,70kg,11,8,
+9/17/2026,biceps,Dumbell Curl Incline Bench 45,2x14kg,12,11,9
+9/17/2026,klatka gora,Dumbell Press Incline Bench 30,2x20kg,12,11,10
+9/17/2026,plecy,Assisted Pullups,-14kg,11,10,
+9/17/2026,klatka triceps,Assisted Dips,-14kg,11,8,
+9/17/2026,bark srodek prawy,Cable Lateral Raise (R),16,12,11,9
+9/17/2026,bark srodek lewy,Cable Lateral Raise (L),16,12,9,8
+9/17/2026,barki tyl prawy,Reverse Cable Fly (R),14,9,11,
+9/17/2026,barki tyl lewy,Reverse Cable Fly (L),14,8,9,
+9/17/2026,biceps,Preacher Curl Machine,40kg,12,9,
+9/17/2026,barki,Overhead Press Smith Machine,2x10kg,12,11,9
+9/17/2026,biceps,Hammer Curl,2x14kg,12,13,
+9/20/2026,klatka,Chest Fly,70kg,11,9,
+9/20/2026,biceps,Dumbell Curl Incline Bench 45 (R),14kg,12,10,9
+9/20/2026,klatka gora,Dumbell Press Incline Bench 30,2x22kg,8,8,7
+9/20/2026,klatka triceps,Assisted Dips,-14kg,11,10,
+9/20/2026,bark srodek prawy,Cable Lateral Raise (R),16,12,11,9
+9/20/2026,bark srodek lewy,Cable Lateral Raise (L),16,12,11,9
+9/20/2026,barki tyl prawy,Reverse Cable Fly (R),14,10,11,
+9/20/2026,barki tyl lewy,Reverse Cable Fly (L),14,10,9,
+9/20/2026,biceps,Dumbell Preacher Curl (R),14kg,12,9,
+9/20/2026,barki,Overhead Press Smith Machine,2x11.25kg,10,9,9
+9/20/2026,biceps,Hammer Curl,2x14kg,12,13,
+9/20/2026,triceps,Bar Cable Pressdown,27.5kg (kolow),12,12,
+9/24/2026,klatka,Chest Fly,70kg,12,9,
+9/24/2026,biceps,Dumbell Curl Incline Bench 45 (R),14kg,12,11,9
+9/24/2026,klatka gora,Dumbell Press Incline Bench 30,2x22kg,8,9,7
+9/24/2026,klatka triceps,Assisted Dips,-14kg,12,12,
+9/24/2026,bark srodek prawy,Cable Lateral Raise (R),16,12,12,10
+9/24/2026,bark srodek lewy,Cable Lateral Raise (L),16,12,11,9
+9/24/2026,barki tyl prawy,Reverse Cable Fly (R),16,13,12,
+9/24/2026,barki tyl lewy,Reverse Cable Fly (L),16,8,8,
+9/24/2026,biceps,Dumbell Preacher Curl (R),14kg,12,10,
+9/24/2026,barki,Overhead Press Smith Machine,2x11.25kg,10,8,7
+9/24/2026,biceps,Hammer Curl,2x14kg,13,13,
+9/24/2026,triceps,Bar Cable Pressdown,27.5kg (kolow),12,12,
+9/24/2026,triceps,Overhead Cable Extensions,40kg (3 kolowrotki),10,12,
+9/27/2026,klatka,Chest Fly,70kg,11,9,
+9/27/2026,biceps,Dumbell Curl Incline Bench 45 (R),14kg,12,11,10
+9/27/2026,klatka gora,Dumbell Press Incline Bench 30,2x22kg,8,9,8
+9/27/2026,klatka triceps,Assisted Dips,-14kg,13,12,
+9/27/2026,barki,Overhead Press Smith Machine,2x11.25kg,8,8,7
+9/27/2026,biceps,Dumbell Preacher Curl (R),14kg,12,10,
+9/27/2026,bark srodek prawy,Cable Lateral Raise (R),16,12,12,10
+9/27/2026,bark srodek lewy,Cable Lateral Raise (L),16,12,12,10
+9/27/2026,barki tyl prawy,Reverse Cable Fly (R),16,13,13,
+9/27/2026,barki tyl lewy,Reverse Cable Fly (L),16,8,8,
+9/27/2026,biceps,Hammer Curl,2x14kg,15,13,
+9/27/2026,triceps,Overhead Cable Extensions,45kg (3 kolowrotki),10,13,
+10/1/2026,klatka,Chest Fly,70kg,11,7,
+10/1/2026,biceps,Dumbell Curl Incline Bench 45 (R),14kg,12,10,9
+10/1/2026,klatka gora,Dumbell Press Incline Bench 30,2x22kg,8,8,7
+10/1/2026,klatka triceps,Assisted Dips,-9kg,10,7,
+10/1/2026,bark srodek prawy,Cable Lateral Raise (R),18,9,7,7
+10/1/2026,bark srodek lewy,Cable Lateral Raise (L),18,8,7,6
+10/1/2026,barki tyl prawy,Reverse Cable Fly (R),16,13,10,
+10/1/2026,barki tyl lewy,Reverse Cable Fly (L),16,7,9,
+10/1/2026,biceps,Dumbell Preacher Curl (R),14kg,14,10,
+10/1/2026,barki,Overhead Press Smith Machine,2x11.25kg,11,9,8
+10/1/2026,biceps,Hammer Curl,2x16kg,13,10,10
+10/1/2026,triceps,Overhead Cable Extensions,45kg (3 kolowrotki),10,11,
+10/1/2026,triceps,Bar Cable Pressdown,27.5kg (kolow),8,,
+10/4/2026,klatka,Chest Fly,70kg,11,9,
+10/4/2026,biceps,Dumbell Curl Incline Bench 45 (R),14kg,12,10,9
+10/4/2026,klatka gora,Dumbell Press Incline Bench 30,2x22kg,9,9,8
+10/4/2026,klatka triceps,Assisted Dips,-9kg,10,9,
+10/4/2026,bark srodek prawy,Cable Lateral Raise (R),18,11,8,7
+10/4/2026,bark srodek lewy,Cable Lateral Raise (L),18,10,8,6
+10/4/2026,barki tyl prawy,Reverse Cable Fly (R),16,14,10,
+10/4/2026,barki tyl lewy,Reverse Cable Fly (L),16,8,9,
+10/4/2026,biceps,Preacher Curl Machine (R),20kg,9,7,6
+10/4/2026,barki,Overhead Press Smith Machine,2x11.25kg,11,9,8
+10/4/2026,biceps,Hammer Curl,2x16kg,11,10,
+10/4/2026,triceps,Overhead Cable Extensions,45kg (3 kolowrotki),11,11,
+10/7/2026,klatka,Chest Fly,70kg,11,8,
+10/7/2026,biceps,Dumbell Curl Incline Bench 45 (R),14kg,12,10,8
+10/7/2026,klatka gora,Dumbell Press Incline Bench 30,2x22kg,9,9,8
+10/7/2026,klatka triceps,Assisted Dips,-9kg,10,8,
+10/7/2026,bark srodek prawy,Cable Lateral Raise (R),18,7,7,7
+10/7/2026,bark srodek lewy,Cable Lateral Raise (L),18,8,9,7
+10/7/2026,barki tyl prawy,Reverse Cable Fly (R),16,14,14,
+10/7/2026,barki tyl lewy,Reverse Cable Fly (L),16,8,7,
+10/7/2026,biceps,Dumbell Preacher Curl (R),16kg,8,7,
+10/7/2026,barki,Overhead Press Smith Machine,2x11.25kg,10,8,7
+10/7/2026,biceps,Hammer Curl,2x16kg,13,10,
+10/7/2026,triceps,Bar Cable Pressdown,27.5kg (kolow),8,7,
+10/11/2026,klatka,Chest Fly,70kg,11,9,
+10/11/2026,biceps,Dumbell Curl Incline Bench 45 (R),14kg,12,11,9
+10/11/2026,klatka gora,Dumbell Press Incline Bench 30,2x22kg,10,9,9
+10/11/2026,klatka triceps,Assisted Dips,-9kg,12,8,
+10/11/2026,bark srodek prawy,Cable Lateral Raise (R),18,8,8,7
+10/11/2026,bark srodek lewy,Cable Lateral Raise (L),18,8,8,7
+10/11/2026,barki tyl prawy,Reverse Cable Fly (R),16,12,13,
+10/11/2026,barki tyl lewy,Reverse Cable Fly (L),16,7,8,
+10/11/2026,biceps,Dumbell Preacher Curl (R),16kg,7,6,
+10/11/2026,barki,Overhead Press Smith Machine,2x11.25kg,11,8,7
+10/11/2026,biceps,Hammer Curl,2x16kg,14,11,
+10/11/2026,triceps,Overhead Cable Extensions,45kg (3 kolowrotki),10,11,

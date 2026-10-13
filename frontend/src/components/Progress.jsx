@@ -14,7 +14,8 @@ import { api } from '../api';
 // For a given session's sets, the two numbers most worth tracking over time:
 // the heaviest weight lifted, and the total volume (reps * weight summed).
 function summarizeSets(sets) {
-  const maxWeight = sets.reduce((max, s) => Math.max(max, s.weight), 0);
+  // Negative weight = assistance; -27 is better than -32, so a plain max works.
+  const maxWeight = sets.length ? Math.max(...sets.map((s) => s.weight)) : 0;
   const volume = sets.reduce((sum, s) => sum + s.reps * s.weight, 0);
   return { maxWeight, volume };
 }
@@ -47,10 +48,13 @@ export default function Progress({ exercises }) {
         return {
           date: new Date(entry.date).toLocaleDateString(),
           'Max weight (kg)': maxWeight,
-          'Total volume (kg)': volume
+          'Total volume (kg)': volume,
+          assisted: entry.sets.some((s) => s.weight < 0)
         };
       });
   }, [history]);
+
+  const hasAssist = chartData.some((d) => d.assisted);
 
   return (
     <div className="card">
@@ -81,7 +85,9 @@ export default function Progress({ exercises }) {
               <Tooltip contentStyle={{ background: '#141821', border: '1px solid #262d3f', borderRadius: 10, color: '#e8ebf2' }} />
               <Legend wrapperStyle={{ color: '#8b93a7' }} />
               <Line type="monotone" dataKey="Max weight (kg)" stroke="#a994ff" strokeWidth={2} />
-              <Line type="monotone" dataKey="Total volume (kg)" stroke="#22d3ee" strokeWidth={2} />
+              {!hasAssist && (
+                <Line type="monotone" dataKey="Total volume (kg)" stroke="#22d3ee" strokeWidth={2} />
+              )}
             </LineChart>
           </ResponsiveContainer>
         </div>
