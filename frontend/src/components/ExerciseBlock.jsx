@@ -5,6 +5,7 @@ import { fmtSet, fmtTime } from '../sessionUtils.js';
 export default function ExerciseBlock({
   block,
   label,
+  currentSetId,
   onToggleSet,
   onChangeSet,
   onAddSet,
@@ -36,10 +37,14 @@ export default function ExerciseBlock({
           const key = set.side || 'x';
           sideCounts[key] = (sideCounts[key] || 0) + 1;
           const n = sideCounts[key];
+          const isCurrent = set.id === currentSetId;
           return (
-            <div className={`set-row ${set.completed ? 'completed' : ''}`} key={set.id}>
+            <div
+              className={`set-row ${set.completed ? 'completed' : ''} ${isCurrent ? 'current' : ''}`}
+              key={set.id}
+            >
               <span className="set-label">
-                Set {n}
+                {isCurrent ? '▶ ' : ''}Set {n}
                 {set.side && (
                   <span className={`side side-${set.side}`}>
                     {set.side === 'L' ? 'Left' : 'Right'}

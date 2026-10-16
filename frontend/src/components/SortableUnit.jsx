@@ -1,8 +1,9 @@
+import { useEffect, useRef } from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import ExerciseBlock from './ExerciseBlock.jsx';
 import { useNow } from '../useNow.js';
-import { fmtTime, isUnitDone } from '../sessionUtils.js';
+import { fmtTime, getCurrentSet, isUnitDone } from '../sessionUtils.js';
 
 function UnitClock({ unit }) {
   const now = useNow();
@@ -26,7 +27,22 @@ export default function SortableUnit({
   const { attributes, listeners, setNodeRef, setActivatorNodeRef, transform, transition, isDragging } =
     useSortable({ id: unit.id });
 
+  // When this exercise becomes the open one (e.g. the previous one was marked done),
+  // bring it to the top of the screen so there's no need to scroll. Not on first render,
+  // so loading a routine or resuming a session doesn't jump the page around.
+  const nodeRef = useRef(null);
+  const wasActive = useRef(active);
+  useEffect(() => {
+    if (active && !wasActive.current) {
+      requestAnimationFrame(() =>
+        nodeRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      );
+    }
+    wasActive.current = active;
+  }, [active]);
+
   const done = isUnitDone(unit);
+  const current = active && !done ? getCurrentSet(unit) : null;
   const superset = unit.blocks.length > 1;
   const totalSets = unit.blocks.reduce((n, b) => n + b.sets.length, 0);
   const doneSets = unit.blocks.reduce((n, b) => n + b.sets.filter((s) => s.completed).length, 0);
@@ -39,7 +55,10 @@ export default function SortableUnit({
 
   return (
     <div
-      ref={setNodeRef}
+      ref={(el) => {
+        nodeRef.current = el;
+        setNodeRef(el);
+      }}
       style={style}
       className={`unit ${active ? 'active' : ''} ${done ? 'done' : ''} ${isDragging ? 'dragging' : ''}`}
     >
@@ -87,6 +106,7 @@ export default function SortableUnit({
               key={block.exerciseId}
               block={block}
               label={superset ? ['A', 'B'][bi] : null}
+              currentSetId={current && current.blockIndex === bi ? current.setId : null}
               onToggleSet={(setId) => onToggleSet(bi, setId)}
               onChangeSet={(setId, field, value) => onChangeSet(bi, setId, field, value)}
               onAddSet={() => onAddSet(bi)}

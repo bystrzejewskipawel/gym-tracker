@@ -76,3 +76,69 @@ export function stopTiming(unit, now) {
 export function startTiming(unit, now) {
   return unit.activeSince ? unit : { ...unit, activeSince: now };
 }
+
+// ---- current set ------------------------------------------------------------
+
+// The set to do next in an open unit: the first unfinished set in the order
+// A set 1 -> B set 1 -> A set 2 -> ... (for a single exercise: simply the first unfinished set).
+export function getCurrentSet(unit) {
+  const rounds = Math.max(0, ...unit.blocks.map((b) => b.sets.length));
+  for (let r = 0; r < rounds; r++) {
+    for (let bi = 0; bi < unit.blocks.length; bi++) {
+      const s = unit.blocks[bi].sets[r];
+      if (s && !s.completed) return { blockIndex: bi, setId: s.id };
+    }
+  }
+  return null;
+}
+
+// ---- draft (autosaved unfinished session) ------------------------------------
+
+// Time that passed while the page was closed must not count as time on the exercise:
+// count the open exercise up to the last autosave, then start the clock again from `now`.
+export function restoreUnits(units, savedAt, now) {
+  return units.map((u) =>
+    u.activeSince
+      ? { ...u, elapsedMs: u.elapsedMs + Math.max(0, savedAt - u.activeSince), activeSince: now }
+      : u
+  );
+}
+
+export function describeDraft(draft, now = new Date()) {
+  const blocks = draft.units.flatMap((u) => u.blocks);
+  const total = blocks.reduce((n, b) => n + b.sets.length, 0);
+  const done = blocks.reduce((n, b) => n + b.sets.filter((s) => s.completed).length, 0);
+  const started = new Date(draft.startedAt || draft.savedAt);
+  const when =
+    started.toDateString() === now.toDateString()
+      ? `today at ${started.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`
+      : started.toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' });
+  return `Started ${when} · ${blocks.length} exercise${blocks.length === 1 ? '' : 's'} · ${done}/${total} sets done`;
+}
+
+// ---- progress chart ----------------------------------------------------------
+
+const round1 = (n) => Math.round(n * 10) / 10;
+
+// `sets` are one session's sets for one exercise.
+// firstSetTotal: reps x weight of the FIRST set only, so sessions with a different
+// number of sets stay comparable. For one-sided exercises "set 1" is the first row
+// of each side (L and R added together).
+// maxWeight: heaviest weight used (for assisted exercises weights are negative,
+// so -27 correctly counts as better than -32).
+export function summarizeSets(sets) {
+  const maxWeight = sets.length ? Math.max(...sets.map((s) => s.weight)) : 0;
+  const seen = new Set();
+  let firstSetTotal = 0;
+  for (const s of sets) {
+    const key = s.side || 'x';
+    if (seen.has(key)) continue;
+    seen.add(key);
+    firstSetTotal += s.reps * s.weight;
+  }
+  return {
+    maxWeight: round1(maxWeight),
+    firstSetTotal: round1(firstSetTotal),
+    assisted: sets.some((s) => s.weight < 0)
+  };
+}

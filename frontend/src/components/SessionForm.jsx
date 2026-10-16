@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   DndContext,
   closestCenter,
@@ -14,13 +14,16 @@ import {
   verticalListSortingStrategy
 } from '@dnd-kit/sortable';
 import { api } from '../api';
+import { clearDraft, loadDraft, saveDraft } from '../draft.js';
 import RestTimer from './RestTimer.jsx';
 import SortableUnit from './SortableUnit.jsx';
 import {
   addSetTo,
+  describeDraft,
   groupItems,
   isUnitDone,
   removeLastSet,
+  restoreUnits,
   startTiming,
   stopTiming,
   uid
@@ -72,6 +75,74 @@ export default function SessionForm({ exercises, routines, onSaved }) {
   const [error, setError] = useState('');
   const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [startedAt, setStartedAt] = useState(null);
+  // An unfinished session left in this browser (refresh, crash, discarded tab...)
+  const [savedDraft, setSavedDraft] = useState(() => loadDraft());
+
+  // ---- autosave ------------------------------------------------------------
+  // Saved after every change, then refreshed every 15 s and whenever the page is
+  // hidden or closed (the moment mobile browsers like to throw tabs away).
+  const latest = useRef(null);
+  latest.current = { startedAt, units, activeId, restTimer, notes };
+
+  useEffect(() => {
+    if (units.length > 0) saveDraft({ startedAt, units, activeId, restTimer, notes });
+  }, [units, activeId, restTimer, notes, startedAt]);
+
+  useEffect(() => {
+    const flush = () => {
+      if (latest.current.units.length > 0) saveDraft(latest.current);
+    };
+    const onVisibility = () => {
+      if (document.visibilityState === 'hidden') flush();
+    };
+    const timer = setInterval(flush, 15000);
+    document.addEventListener('visibilitychange', onVisibility);
+    window.addEventListener('pagehide', flush);
+    return () => {
+      clearInterval(timer);
+      document.removeEventListener('visibilitychange', onVisibility);
+      window.removeEventListener('pagehide', flush);
+    };
+  }, []);
+
+  // Empties the session and its draft (after saving, discarding, or removing the last exercise).
+  const resetSession = () => {
+    latest.current = { ...latest.current, units: [] }; // stop a pending autosave re-creating it
+    clearDraft();
+    setUnits([]);
+    setActiveId(null);
+    setRestTimer(null);
+    setNotes('');
+    setStartedAt(null);
+  };
+
+  const resumeDraft = () => {
+    const d = savedDraft;
+    const now = Date.now();
+    setUnits(restoreUnits(d.units, d.savedAt, now));
+    setActiveId(d.activeId ?? null);
+    setNotes(d.notes || '');
+    setStartedAt(d.startedAt || d.savedAt);
+    // a rest timer from long ago would just show a huge red number
+    setRestTimer(d.restTimer && now - d.restTimer.startedAt < 30 * 60 * 1000 ? d.restTimer : null);
+    setSavedDraft(null);
+  };
+
+  const discardDraft = () => {
+    if (!confirm('Discard the unfinished session? This cannot be undone.')) return;
+    clearDraft();
+    setSavedDraft(null);
+  };
+
+  // Starting a new session while an unfinished one is waiting replaces it.
+  const confirmReplaceDraft = () => {
+    if (!savedDraft) return true;
+    if (!confirm('Starting a new session will discard the unfinished one. Continue?')) return false;
+    clearDraft();
+    setSavedDraft(null);
+    return true;
+  };
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
@@ -99,6 +170,7 @@ export default function SessionForm({ exercises, routines, onSaved }) {
   const appendUnits = (list) => {
     if (list.length === 0) return;
     setUnits((prev) => [...prev, ...list]);
+    setStartedAt((prev) => prev ?? Date.now());
     if (!activeId) activate(list[0].id);
   };
 
@@ -119,6 +191,10 @@ export default function SessionForm({ exercises, routines, onSaved }) {
   };
 
   const removeUnit = (unitId) => {
+    if (units.length === 1) {
+      resetSession();
+      return;
+    }
     setUnits((prev) => prev.filter((u) => u.id !== unitId));
     if (activeId === unitId) setActiveId(null);
   };
@@ -127,7 +203,7 @@ export default function SessionForm({ exercises, routines, onSaved }) {
 
   const addExercise = async (exerciseId) => {
     const ex = exercises.find((e) => e._id === exerciseId);
-    if (!ex || takenIds().has(exerciseId)) return;
+    if (!ex || takenIds().has(exerciseId) || !confirmReplaceDraft()) return;
     setLoading(true);
     try {
       appendUnits([newUnit([await createBlock(ex)])]);
@@ -138,7 +214,7 @@ export default function SessionForm({ exercises, routines, onSaved }) {
 
   const loadRoutine = async (routineId) => {
     const routine = routines.find((r) => r._id === routineId);
-    if (!routine) return;
+    if (!routine || !confirmReplaceDraft()) return;
     const taken = takenIds();
     const groups = groupItems(routine.items.filter((i) => i.exercise));
 
@@ -258,11 +334,12 @@ export default function SessionForm({ exercises, routines, onSaved }) {
 
     setSaving(true);
     try {
-      await api.createSession({ notes, exercises: payload });
-      setUnits([]);
-      setActiveId(null);
-      setRestTimer(null);
-      setNotes('');
+      await api.createSession({
+        date: new Date(startedAt || Date.now()).toISOString(),
+        notes,
+        exercises: payload
+      });
+      resetSession();
       onSaved();
     } catch (err) {
       setError(err.message);
@@ -274,6 +351,21 @@ export default function SessionForm({ exercises, routines, onSaved }) {
   return (
     <div>
       <RestTimer timer={restTimer} onClear={() => setRestTimer(null)} />
+
+      {savedDraft && (
+        <div className="card resume-card">
+          <strong>Unfinished session found</strong>
+          <p className="muted small">{describeDraft(savedDraft)}</p>
+          <div className="row" style={{ marginBottom: 0 }}>
+            <button type="button" onClick={resumeDraft}>
+              Resume
+            </button>
+            <button type="button" className="ghost" onClick={discardDraft}>
+              Discard
+            </button>
+          </div>
+        </div>
+      )}
 
       <div className="card">
         <h2>New Session</h2>

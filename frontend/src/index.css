@@ -246,3 +246,16 @@ button.link.neutral:hover:not(:disabled) { background: rgba(124, 92, 255, 0.12);
 .edit-set { display: grid; gap: 8px; align-items: center; margin-bottom: 6px; }
 .edit-set input, .edit-set select { min-width: 0; text-align: center; padding: 8px 4px; }
 .edit-form-grid { display: flex; flex-direction: column; gap: 8px; margin: 10px 0; }
+
+/* ---------- v4: current set, scroll offset, resume banner ---------- */
+.set-table { gap: 4px; }
+.set-row { padding: 6px; border: 1px solid transparent; border-radius: 12px; transition: background 0.2s, border-color 0.2s; }
+.set-row.current {
+  background: rgba(124, 92, 255, 0.15);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(124, 92, 255, 0.12);
+}
+.set-row.current .set-label { color: var(--accent-text); font-weight: 700; }
+.unit { scroll-margin-top: 92px; } /* leaves room for the sticky rest timer */
+.resume-card { border-color: var(--amber); background: rgba(245, 158, 11, 0.08); }
+.resume-card p { margin: 6px 0 12px; }
