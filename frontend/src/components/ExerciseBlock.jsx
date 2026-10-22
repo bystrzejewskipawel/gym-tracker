@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import { fmtSet, fmtTime } from '../sessionUtils.js';
 
 // The sets editor for one exercise. Grey numbers = prefilled from the last
@@ -12,6 +13,20 @@ export default function ExerciseBlock({
   onRemoveSet
 }) {
   const sideCounts = {};
+
+  // When the current set moves on (a set was ticked, or in a superset the turn passed to the
+  // other exercise), scroll it to the middle of the screen. Not on first render, so opening an
+  // exercise doesn't fight with the scroll-to-exercise behaviour.
+  const currentRowRef = useRef(null);
+  const previousCurrent = useRef(currentSetId);
+  useEffect(() => {
+    if (currentSetId && currentSetId !== previousCurrent.current) {
+      requestAnimationFrame(() =>
+        currentRowRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      );
+    }
+    previousCurrent.current = currentSetId;
+  }, [currentSetId]);
 
   return (
     <div className="ex-block">
@@ -42,6 +57,7 @@ export default function ExerciseBlock({
             <div
               className={`set-row ${set.completed ? 'completed' : ''} ${isCurrent ? 'current' : ''}`}
               key={set.id}
+              ref={isCurrent ? currentRowRef : undefined}
             >
               <span className="set-label">
                 {isCurrent ? '▶ ' : ''}Set {n}
