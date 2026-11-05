@@ -21,6 +21,12 @@ async function request(path, options = {}) {
     ...options
   });
   if (!res.ok) {
+    // An expired or invalid login token: forget it and tell the app to show the login screen.
+    // (A 401 without a token is just a wrong password on the login form, so it is left alone.)
+    if (res.status === 401 && token) {
+      setToken(null);
+      window.dispatchEvent(new Event('gymtracker:unauthorized'));
+    }
     const body = await res.json().catch(() => ({}));
     const err = new Error(body.error || `Request failed: ${res.status}`);
     err.status = res.status;

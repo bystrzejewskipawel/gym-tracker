@@ -22,10 +22,30 @@ export default function App() {
   const [routines, setRoutines] = useState([]);
   const [refreshKey, setRefreshKey] = useState(0);
 
+  const [loadError, setLoadError] = useState('');
+  const [notice, setNotice] = useState('');
+
   const loadAll = () => {
-    api.getExercises().then(setExercises).catch(console.error);
-    api.getRoutines().then(setRoutines).catch(console.error);
+    setLoadError('');
+    Promise.all([api.getExercises().then(setExercises), api.getRoutines().then(setRoutines)]).catch(
+      (err) => {
+        console.error(err);
+        // a 401 is handled by the listener below (back to the login screen)
+        if (err.status !== 401) setLoadError(err.message || 'Could not reach the server');
+      }
+    );
   };
+
+  // The API rejected our token (expired after 30 days, or the server secret changed).
+  // An unfinished session is kept in this browser and can be resumed after logging in again.
+  useEffect(() => {
+    const onUnauthorized = () => {
+      setNotice('Your login expired. Please log in again. An unfinished session is kept.');
+      setAuthed(false);
+    };
+    window.addEventListener('gymtracker:unauthorized', onUnauthorized);
+    return () => window.removeEventListener('gymtracker:unauthorized', onUnauthorized);
+  }, []);
 
   useEffect(() => {
     if (authed) loadAll();
@@ -39,7 +59,15 @@ export default function App() {
   };
 
   if (!authed) {
-    return <Login onLoggedIn={() => setAuthed(true)} />;
+    return (
+      <Login
+        notice={notice}
+        onLoggedIn={() => {
+          setNotice('');
+          setAuthed(true);
+        }}
+      />
+    );
   }
 
   return (
@@ -50,6 +78,18 @@ export default function App() {
           log out
         </button>
       </header>
+
+      {loadError && (
+        <div className="card resume-card">
+          <strong>Can't load data from the server</strong>
+          <p className="muted small">
+            {loadError}. Free hosting can take up to a minute to wake up, so try again in a moment.
+          </p>
+          <button type="button" onClick={loadAll}>
+            Retry
+          </button>
+        </div>
+      )}
 
       <main>
         {/* The session tab stays mounted so an in-progress workout (and its

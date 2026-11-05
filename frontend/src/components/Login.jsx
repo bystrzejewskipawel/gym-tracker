@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { api, setToken } from '../api';
 
-export default function Login({ onLoggedIn }) {
+export default function Login({ onLoggedIn, notice }) {
   const [mode, setMode] = useState('login'); // 'login' | 'register'
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -28,6 +28,7 @@ export default function Login({ onLoggedIn }) {
       <div className="card" style={{ marginTop: 60 }}>
         <h1 style={{ marginTop: 0 }}>Gym Tracker</h1>
         <h2>{mode === 'login' ? 'Log in' : 'Create an account'}</h2>
+        {notice && <p className="error">{notice}</p>}
         <form onSubmit={handleSubmit}>
           <div className="row">
             <input
