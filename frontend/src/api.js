@@ -51,6 +51,16 @@ export const api = {
   updateSession: (id, data) => request(`/sessions/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
   deleteSession: (id) => request(`/sessions/${id}`, { method: 'DELETE' }),
 
+  // push (rest-over notifications); keepalive so the call survives the page being hidden right after a tap
+  pushKey: () => request('/push/public-key'),
+  pushSubscribe: (subscription) =>
+    request('/push/subscribe', { method: 'POST', body: JSON.stringify({ subscription }) }),
+  pushUnsubscribe: (endpoint) =>
+    request('/push/unsubscribe', { method: 'POST', body: JSON.stringify({ endpoint }) }),
+  pushRest: (data) =>
+    request('/push/rest', { method: 'POST', body: JSON.stringify(data), keepalive: true }),
+  pushCancelRest: () => request('/push/rest', { method: 'DELETE', keepalive: true }),
+
   // routines
   getRoutines: () => request('/routines'),
   createRoutine: (data) => request('/routines', { method: 'POST', body: JSON.stringify(data) }),

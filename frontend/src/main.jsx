@@ -8,3 +8,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <App />
   </React.StrictMode>
 );
+
+// Service worker: needed for the "rest is over" notifications (HTTPS or localhost only).
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch((err) => console.warn('Service worker:', err));
+  });
+}

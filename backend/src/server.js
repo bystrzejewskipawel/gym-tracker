@@ -7,6 +7,7 @@ const authRoutes = require('./routes/auth');
 const exerciseRoutes = require('./routes/exercises');
 const sessionRoutes = require('./routes/sessions');
 const routineRoutes = require('./routes/routines');
+const pushRoutes = require('./routes/push');
 
 const app = express();
 
@@ -19,6 +20,9 @@ app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
 
 // Public auth routes (register/login issue the token used everywhere else)
 app.use('/api/auth', authRoutes);
+
+// Push: the public key is public, the other push routes check the token themselves
+app.use('/api/push', pushRoutes);
 
 // Everything below this line requires a valid Bearer token
 app.use('/api/exercises', requireAuth, exerciseRoutes);

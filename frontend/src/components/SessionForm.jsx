@@ -17,11 +17,14 @@ import { api } from '../api';
 import { clearDraft, loadDraft, saveDraft } from '../draft.js';
 import RestTimer from './RestTimer.jsx';
 import SortableUnit from './SortableUnit.jsx';
+import PushToggle from './PushToggle.jsx';
+import { cancelRestPush, scheduleRestPush } from '../push.js';
 import {
   addSetTo,
   describeDraft,
   groupItems,
   isUnitDone,
+  nextUpText,
   removeLastSet,
   restoreUnits,
   startTiming,
@@ -110,6 +113,7 @@ export default function SessionForm({ exercises, routines, onSaved }) {
   const resetSession = () => {
     latest.current = { ...latest.current, units: [] }; // stop a pending autosave re-creating it
     clearDraft();
+    cancelRestPush();
     setUnits([]);
     setActiveId(null);
     setRestTimer(null);
@@ -276,13 +280,18 @@ export default function SessionForm({ exercises, routines, onSaved }) {
     if (completing) {
       const isLastInUnit = bi === unit.blocks.length - 1;
       if (isLastInUnit) {
+        const target = Math.max(...unit.blocks.map((b) => b.restSeconds));
         setRestTimer({
           startedAt: Date.now(),
-          target: Math.max(...unit.blocks.map((b) => b.restSeconds)),
+          target,
           label: unit.blocks.length > 1 ? 'Superset rest' : 'Rest'
         });
+        // Same moment as the on-screen timer ends, but delivered even if the app is in the
+        // background (the service worker stays quiet when the app is on screen).
+        scheduleRestPush({ seconds: target, title: 'Rest over', body: nextUpText(units, unitId, setId) });
       } else {
         setRestTimer(null); // straight on to the next exercise in the superset
+        cancelRestPush();
       }
     }
   };
@@ -350,7 +359,13 @@ export default function SessionForm({ exercises, routines, onSaved }) {
 
   return (
     <div>
-      <RestTimer timer={restTimer} onClear={() => setRestTimer(null)} />
+      <RestTimer
+        timer={restTimer}
+        onClear={() => {
+          setRestTimer(null);
+          cancelRestPush();
+        }}
+      />
 
       {savedDraft && (
         <div className="card resume-card">
@@ -416,6 +431,7 @@ export default function SessionForm({ exercises, routines, onSaved }) {
           </button>
         </div>
         {loading && <p className="muted small">Loading…</p>}
+        <PushToggle />
       </div>
 
       {units.length > 0 && (

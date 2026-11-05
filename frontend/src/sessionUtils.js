@@ -142,3 +142,32 @@ export function summarizeSets(sets) {
     assisted: sets.some((s) => s.weight < 0)
   };
 }
+
+// ---- rest-over notification text ----------------------------------------------
+
+// What comes next, after `completedSetId` has just been ticked in unit `unitId`.
+export function nextUpText(units, unitId, completedSetId) {
+  const idx = units.findIndex((u) => u.id === unitId);
+  const unit = units[idx];
+  const updated = {
+    ...unit,
+    blocks: unit.blocks.map((b) => ({
+      ...b,
+      sets: b.sets.map((s) => (s.id === completedSetId ? { ...s, completed: true } : s))
+    }))
+  };
+
+  const cur = getCurrentSet(updated);
+  if (cur) {
+    const block = updated.blocks[cur.blockIndex];
+    const row = block.sets.findIndex((s) => s.id === cur.setId);
+    const side = block.sets[row].side;
+    const n = block.sets.slice(0, row + 1).filter((s) => (s.side || null) === (side || null)).length;
+    return `Next: ${block.name}, set ${n}${side ? ` (${side === 'L' ? 'left' : 'right'})` : ''}`;
+  }
+
+  const nextUnit = [...units.slice(idx + 1), ...units.slice(0, idx)].find((u) => !isUnitDone(u));
+  return nextUnit
+    ? `Exercise finished. Up next: ${nextUnit.blocks.map((b) => b.name).join(' + ')}`
+    : 'Last set done. Time to finish the session.';
+}
