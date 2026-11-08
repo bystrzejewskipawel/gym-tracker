@@ -3,7 +3,7 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import ExerciseBlock from './ExerciseBlock.jsx';
 import { useNow } from '../useNow.js';
-import { fmtTime, getCurrentSet, isUnitDone } from '../sessionUtils.js';
+import { allSetsComplete, fmtTime, getCurrentSet, isUnitDone } from '../sessionUtils.js';
 
 function UnitClock({ unit }) {
   const now = useNow();
@@ -22,7 +22,10 @@ export default function SortableUnit({
   onToggleSet,
   onChangeSet,
   onAddSet,
-  onRemoveSet
+  onRemoveSet,
+  canJoin,
+  onJoin,
+  onSplit
 }) {
   const { attributes, listeners, setNodeRef, setActivatorNodeRef, transform, transition, isDragging } =
     useSortable({ id: unit.id });
@@ -40,6 +43,20 @@ export default function SortableUnit({
     }
     wasActive.current = active;
   }, [active]);
+
+  // When the last set gets ticked, bring the "Mark exercise done" button into view
+  // (there is no next set left to scroll to).
+  const allDone = allSetsComplete(unit);
+  const doneBtnRef = useRef(null);
+  const wasAllDone = useRef(allDone);
+  useEffect(() => {
+    if (active && allDone && !wasAllDone.current) {
+      requestAnimationFrame(() =>
+        doneBtnRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      );
+    }
+    wasAllDone.current = allDone;
+  }, [allDone, active]);
 
   const done = isUnitDone(unit);
   const current = active && !done ? getCurrentSet(unit) : null;
@@ -60,6 +77,7 @@ export default function SortableUnit({
         setNodeRef(el);
       }}
       style={style}
+      data-unit-id={unit.id}
       className={`unit ${active ? 'active' : ''} ${done ? 'done' : ''} ${isDragging ? 'dragging' : ''}`}
     >
       <div className="unit-header">
@@ -88,6 +106,29 @@ export default function SortableUnit({
           </span>
         </button>
 
+        {!done && canJoin && (
+          <button
+            type="button"
+            className="link neutral icon-only"
+            onClick={onJoin}
+            title="Join with the exercise below as a superset"
+            aria-label="Join with the exercise below as a superset"
+          >
+            🔗
+          </button>
+        )}
+        {!done && superset && (
+          <button
+            type="button"
+            className="link neutral icon-only"
+            onClick={onSplit}
+            title="Split the superset back into two exercises"
+            aria-label="Split the superset back into two exercises"
+          >
+            ✂️
+          </button>
+        )}
+
         <button type="button" className="link" onClick={onRemove} aria-label="Remove from session">
           ✕
         </button>
@@ -113,8 +154,13 @@ export default function SortableUnit({
               onRemoveSet={() => onRemoveSet(bi)}
             />
           ))}
-          <button type="button" className="done-btn" onClick={onMarkDone}>
-            ✓ Mark exercise done
+          <button
+            type="button"
+            ref={doneBtnRef}
+            className={`done-btn ${allDone ? 'ready' : 'idle'}`}
+            onClick={onMarkDone}
+          >
+            {allDone ? '✓ All sets done · Mark exercise done' : 'Mark exercise done'}
           </button>
         </div>
       )}

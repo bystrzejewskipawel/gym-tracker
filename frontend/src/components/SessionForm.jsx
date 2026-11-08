@@ -21,12 +21,16 @@ import PushToggle from './PushToggle.jsx';
 import { cancelRestPush, scheduleRestPush } from '../push.js';
 import {
   addSetTo,
+  canJoinWithNext,
   describeDraft,
   groupItems,
   isUnitDone,
+  lastFinishedIndex,
+  mergeUnits,
   nextUpText,
   removeLastSet,
   restoreUnits,
+  splitUnit,
   startTiming,
   stopTiming,
   uid
@@ -79,6 +83,7 @@ export default function SessionForm({ exercises, routines, onSaved }) {
   const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(false);
   const [startedAt, setStartedAt] = useState(null);
+  const [scrollTarget, setScrollTarget] = useState(null);
   // An unfinished session left in this browser (refresh, crash, discarded tab...)
   const [savedDraft, setSavedDraft] = useState(() => loadDraft());
 
@@ -108,6 +113,16 @@ export default function SessionForm({ exercises, routines, onSaved }) {
       window.removeEventListener('pagehide', flush);
     };
   }, []);
+
+  useEffect(() => {
+    if (!scrollTarget) return;
+    requestAnimationFrame(() =>
+      document
+        .querySelector(`[data-unit-id="${scrollTarget}"]`)
+        ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    );
+    setScrollTarget(null);
+  }, [scrollTarget]);
 
   // Empties the session and its draft (after saving, discarding, or removing the last exercise).
   const resetSession = () => {
@@ -205,15 +220,57 @@ export default function SessionForm({ exercises, routines, onSaved }) {
 
   // ---- adding exercises / routines ----------------------------------------
 
+  // A single exercise added to a session that is already under way goes right after the last
+  // completed exercise and becomes the open one. While nothing is completed yet (still putting
+  // the session together) it simply goes to the end, as before.
+  const insertSingleUnit = (unit) => {
+    if (lastFinishedIndex(latest.current.units) < 0) {
+      appendUnits([unit]);
+      return;
+    }
+    setUnits((prev) => {
+      const next = [...prev];
+      next.splice(lastFinishedIndex(prev) + 1, 0, unit);
+      return next;
+    });
+    setStartedAt((prev) => prev ?? Date.now());
+    activate(unit.id);
+    setScrollTarget(unit.id); // a new card mounts already open, so scroll to it explicitly
+  };
+
   const addExercise = async (exerciseId) => {
     const ex = exercises.find((e) => e._id === exerciseId);
     if (!ex || takenIds().has(exerciseId) || !confirmReplaceDraft()) return;
     setLoading(true);
     try {
-      appendUnits([newUnit([await createBlock(ex)])]);
+      insertSingleUnit(newUnit([await createBlock(ex)]));
     } finally {
       setLoading(false);
     }
+  };
+
+  // ---- supersets built during the session ----------------------------------
+
+  const joinWithNext = (unitId) => {
+    const idx = units.findIndex((u) => u.id === unitId);
+    if (!canJoinWithNext(units, idx)) return;
+    const a = units[idx];
+    const b = units[idx + 1];
+    const merged = mergeUnits(a, b, Date.now());
+    setUnits((prev) => {
+      const i = prev.findIndex((u) => u.id === a.id);
+      const next = [...prev];
+      next.splice(i, 2, merged);
+      return next;
+    });
+    if (activeId === a.id || activeId === b.id) setActiveId(merged.id);
+  };
+
+  const splitSuperset = (unitId) => {
+    const unit = units.find((u) => u.id === unitId);
+    if (!unit || unit.blocks.length !== 2) return;
+    const [first, second] = splitUnit(unit, Date.now(), uid());
+    setUnits((prev) => prev.flatMap((u) => (u.id === unitId ? [first, second] : [u])));
   };
 
   const loadRoutine = async (routineId) => {
@@ -436,13 +493,13 @@ export default function SessionForm({ exercises, routines, onSaved }) {
 
       {units.length > 0 && (
         <p className="muted small hint">
-          Drag ⋮⋮ to reorder · tap a title to open that exercise
+          Drag ⋮⋮ to reorder · tap a title to open it · 🔗 joins an exercise with the one below as a superset
         </p>
       )}
 
       <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
         <SortableContext items={units.map((u) => u.id)} strategy={verticalListSortingStrategy}>
-          {units.map((unit) => (
+          {units.map((unit, index) => (
             <SortableUnit
               key={unit.id}
               unit={unit}
@@ -454,6 +511,9 @@ export default function SessionForm({ exercises, routines, onSaved }) {
               onChangeSet={(bi, setId, field, value) => changeSet(unit.id, bi, setId, field, value)}
               onAddSet={(bi) => addSet(unit.id, bi)}
               onRemoveSet={(bi) => removeSet(unit.id, bi)}
+              canJoin={canJoinWithNext(units, index)}
+              onJoin={() => joinWithNext(unit.id)}
+              onSplit={() => splitSuperset(unit.id)}
             />
           ))}
         </SortableContext>

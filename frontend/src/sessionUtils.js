@@ -171,3 +171,54 @@ export function nextUpText(units, unitId, completedSetId) {
     ? `Exercise finished. Up next: ${nextUnit.blocks.map((b) => b.name).join(' + ')}`
     : 'Last set done. Time to finish the session.';
 }
+
+// ---- finished exercises, supersets built during a session ---------------------
+
+// Every set ticked (and at least one set exists).
+export const allSetsComplete = (unit) =>
+  unit.blocks.some((b) => b.sets.length > 0) &&
+  unit.blocks.every((b) => b.sets.every((s) => s.completed));
+
+// "Completed" for ordering purposes: marked done, or every set ticked.
+export const isUnitFinished = (unit) => isUnitDone(unit) || allSetsComplete(unit);
+
+export function lastFinishedIndex(units) {
+  let idx = -1;
+  units.forEach((u, i) => {
+    if (isUnitFinished(u)) idx = i;
+  });
+  return idx;
+}
+
+// Can the exercise at `index` be joined with the one below it into a superset?
+// Both must be single exercises that are not marked done (a superset is exactly two).
+export function canJoinWithNext(units, index) {
+  const a = units[index];
+  const b = units[index + 1];
+  return Boolean(
+    a && b && a.blocks.length === 1 && b.blocks.length === 1 && !isUnitDone(a) && !isUnitDone(b)
+  );
+}
+
+// Time already spent on each exercise is added together; if either was the open one,
+// the superset is open and its clock keeps running from `now`.
+export function mergeUnits(a, b, now) {
+  const wasOpen = Boolean(a.activeSince || b.activeSince);
+  return {
+    id: a.id,
+    blocks: [...a.blocks, ...b.blocks],
+    elapsedMs: stopTiming(a, now).elapsedMs + stopTiming(b, now).elapsedMs,
+    activeSince: wasOpen ? now : null
+  };
+}
+
+// Splitting shares the time evenly (a superset's time is split that way when saved anyway).
+// The first exercise keeps the open/closed state of the superset.
+export function splitUnit(unit, now, newId) {
+  const stopped = stopTiming(unit, now);
+  const half = Math.round(stopped.elapsedMs / 2);
+  return [
+    { id: unit.id, blocks: [unit.blocks[0]], elapsedMs: half, activeSince: unit.activeSince ? now : null },
+    { id: newId, blocks: [unit.blocks[1]], elapsedMs: stopped.elapsedMs - half, activeSince: null }
+  ];
+}
