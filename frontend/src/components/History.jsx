@@ -28,6 +28,7 @@ function SessionEditor({ session, exercises, onCancel, onSaved }) {
     session.exercises.map((e) => ({
       exerciseId: e.exercise,
       exerciseName: e.exerciseName,
+      superset: e.superset ?? null,
       duration: fmtTime(e.durationSeconds || 0),
       sets: e.sets.map((s) => ({ reps: String(s.reps), weight: String(s.weight), side: s.side || '' }))
     }))
@@ -96,6 +97,7 @@ function SessionEditor({ session, exercises, onCancel, onSaved }) {
       payload.push({
         exerciseId: it.exerciseId,
         exerciseName: it.exerciseName,
+        superset: it.superset ?? null,
         durationSeconds,
         sets: it.sets.map((s) => ({
           reps: Number(s.reps),

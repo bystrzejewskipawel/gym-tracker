@@ -52,7 +52,7 @@ export const api = {
     request(`/exercises/${id}/history${limit ? `?limit=${limit}` : ''}`),
 
   // sessions
-  getSessions: () => request('/sessions'),
+  getSessions: (limit) => request(`/sessions${limit ? `?limit=${limit}` : ''}`),
   createSession: (data) => request('/sessions', { method: 'POST', body: JSON.stringify(data) }),
   updateSession: (id, data) => request(`/sessions/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
   deleteSession: (id) => request(`/sessions/${id}`, { method: 'DELETE' }),

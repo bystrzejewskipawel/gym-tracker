@@ -17,7 +17,7 @@ export function groupItems(items) {
   const groups = [];
   items.forEach((it) => {
     const last = groups[groups.length - 1];
-    if (it.superset != null && last && last[0].superset === it.superset) last.push(it);
+    if (it.superset != null && last && last.length < 2 && last[0].superset === it.superset) last.push(it);
     else groups.push([it]);
   });
   return groups;
@@ -221,4 +221,38 @@ export function splitUnit(unit, now, newId) {
     { id: unit.id, blocks: [unit.blocks[0]], elapsedMs: half, activeSince: unit.activeSince ? now : null },
     { id: newId, blocks: [unit.blocks[1]], elapsedMs: stopped.elapsedMs - half, activeSince: null }
   ];
+}
+
+// ---- starting a session from a recent session --------------------------------
+
+// "Sat 7 Nov · Bench press, Row +3"
+export function describeSessionOption(session) {
+  const date = new Date(session.date).toLocaleDateString([], {
+    weekday: 'short',
+    day: 'numeric',
+    month: 'short'
+  });
+  const names = session.exercises.map((e) => e.exerciseName);
+  const more = names.length > 2 ? ` +${names.length - 2}` : '';
+  return `${date} · ${names.slice(0, 2).join(', ')}${more}`;
+}
+
+// A saved session as a blueprint: same exercises, same order, same number of sets
+// (per side for left/right exercises), same supersets. Exercises that have been deleted
+// since are skipped and counted.
+export function sessionToItems(session, exercises) {
+  const items = [];
+  let missing = 0;
+  session.exercises.forEach((e) => {
+    const ex = exercises.find((x) => x._id === e.exercise);
+    if (!ex) {
+      missing += 1;
+      return;
+    }
+    const left = e.sets.filter((s) => s.side === 'L').length;
+    const right = e.sets.filter((s) => s.side === 'R').length;
+    const count = ex.asymmetrical ? Math.max(left, right) || Math.ceil(e.sets.length / 2) : e.sets.length;
+    items.push({ exercise: ex, sets: Math.max(1, count), superset: e.superset ?? null });
+  });
+  return { items, missing };
 }

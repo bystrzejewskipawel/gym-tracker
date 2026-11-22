@@ -23,6 +23,7 @@ import {
   addSetTo,
   canJoinWithNext,
   describeDraft,
+  describeSessionOption,
   groupItems,
   isUnitDone,
   lastFinishedIndex,
@@ -30,6 +31,7 @@ import {
   nextUpText,
   removeLastSet,
   restoreUnits,
+  sessionToItems,
   splitUnit,
   startTiming,
   stopTiming,
@@ -72,12 +74,14 @@ async function createBlock(exercise, setCount) {
 
 const newUnit = (blocks) => ({ id: uid(), blocks, elapsedMs: 0, activeSince: null });
 
-export default function SessionForm({ exercises, routines, onSaved }) {
+export default function SessionForm({ exercises, routines, recentSessions = [], onSaved }) {
   const [units, setUnits] = useState([]);
   const [activeId, setActiveId] = useState(null);
   const [restTimer, setRestTimer] = useState(null);
   const [pickerValue, setPickerValue] = useState('');
   const [routineValue, setRoutineValue] = useState('');
+  const [sessionValue, setSessionValue] = useState('');
+  const [blueprintNote, setBlueprintNote] = useState('');
   const [notes, setNotes] = useState('');
   const [error, setError] = useState('');
   const [saving, setSaving] = useState(false);
@@ -273,11 +277,10 @@ export default function SessionForm({ exercises, routines, onSaved }) {
     setUnits((prev) => prev.flatMap((u) => (u.id === unitId ? [first, second] : [u])));
   };
 
-  const loadRoutine = async (routineId) => {
-    const routine = routines.find((r) => r._id === routineId);
-    if (!routine || !confirmReplaceDraft()) return;
+  // items: [{ exercise, sets, superset }] in session order. Used for routines and for past sessions.
+  const loadItems = async (items) => {
     const taken = takenIds();
-    const groups = groupItems(routine.items.filter((i) => i.exercise));
+    const groups = groupItems(items);
 
     setLoading(true);
     try {
@@ -293,6 +296,27 @@ export default function SessionForm({ exercises, routines, onSaved }) {
     } finally {
       setLoading(false);
     }
+  };
+
+  const loadRoutine = async (routineId) => {
+    const routine = routines.find((r) => r._id === routineId);
+    if (!routine || !confirmReplaceDraft()) return;
+    setBlueprintNote('');
+    await loadItems(routine.items.filter((i) => i.exercise));
+  };
+
+  // Start a new session with the same exercises, order, set counts and supersets as a recent one.
+  const loadSession = async (sessionId) => {
+    const session = recentSessions.find((s) => s._id === sessionId);
+    if (!session || !confirmReplaceDraft()) return;
+    const { items, missing } = sessionToItems(session, exercises);
+    setBlueprintNote(
+      missing > 0
+        ? `${missing} exercise${missing === 1 ? '' : 's'} from that session no longer exist${missing === 1 ? 's' : ''} and ${missing === 1 ? 'was' : 'were'} skipped.`
+        : ''
+    );
+    if (items.length === 0) return;
+    await loadItems(items);
   };
 
   // ---- sets ---------------------------------------------------------------
@@ -377,8 +401,10 @@ export default function SessionForm({ exercises, routines, onSaved }) {
     setError('');
     const now = Date.now();
     const payload = [];
+    let supersetCount = 0;
 
     units.forEach((u) => {
+      const group = u.blocks.length > 1 ? (supersetCount += 1) : null; // same number = done as a superset
       // Superset time is shared between its two exercises.
       const perBlock = Math.round(stopTiming(u, now).elapsedMs / 1000 / u.blocks.length);
       u.blocks.forEach((b) => {
@@ -388,7 +414,7 @@ export default function SessionForm({ exercises, routines, onSaved }) {
           .filter((s) => s.completed)
           .map((s) => ({ reps: Number(s.reps), weight: Number(s.weight) || 0, side: s.side }));
         if (sets.length > 0) {
-          payload.push({ exerciseId: b.exerciseId, durationSeconds: perBlock, sets });
+          payload.push({ exerciseId: b.exerciseId, durationSeconds: perBlock, superset: group, sets });
         }
       });
     });
@@ -466,6 +492,30 @@ export default function SessionForm({ exercises, routines, onSaved }) {
           </div>
         )}
 
+        {recentSessions.length > 0 && (
+          <div className="row">
+            <select value={sessionValue} onChange={(e) => setSessionValue(e.target.value)}>
+              <option value="">Repeat a recent session…</option>
+              {recentSessions.map((s) => (
+                <option key={s._id} value={s._id}>
+                  {describeSessionOption(s)}
+                </option>
+              ))}
+            </select>
+            <button
+              type="button"
+              className="row-btn"
+              disabled={!sessionValue || loading}
+              onClick={() => {
+                loadSession(sessionValue);
+                setSessionValue('');
+              }}
+            >
+              Load
+            </button>
+          </div>
+        )}
+
         <div className="row" style={{ marginBottom: 0 }}>
           <select value={pickerValue} onChange={(e) => setPickerValue(e.target.value)}>
             <option value="">Add a single exercise…</option>
@@ -488,6 +538,7 @@ export default function SessionForm({ exercises, routines, onSaved }) {
           </button>
         </div>
         {loading && <p className="muted small">Loading…</p>}
+        {blueprintNote && <p className="muted small">{blueprintNote}</p>}
         <PushToggle />
       </div>
 

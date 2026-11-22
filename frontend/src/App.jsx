@@ -20,6 +20,7 @@ export default function App() {
   const [tab, setTab] = useState('session');
   const [exercises, setExercises] = useState([]);
   const [routines, setRoutines] = useState([]);
+  const [recentSessions, setRecentSessions] = useState([]);
   const [refreshKey, setRefreshKey] = useState(0);
 
   const [loadError, setLoadError] = useState('');
@@ -27,7 +28,11 @@ export default function App() {
 
   const loadAll = () => {
     setLoadError('');
-    Promise.all([api.getExercises().then(setExercises), api.getRoutines().then(setRoutines)]).catch(
+    Promise.all([
+      api.getExercises().then(setExercises),
+      api.getRoutines().then(setRoutines),
+      api.getSessions(3).then(setRecentSessions)
+    ]).catch(
       (err) => {
         console.error(err);
         // a 401 is handled by the listener below (back to the login screen)
@@ -95,7 +100,12 @@ export default function App() {
         {/* The session tab stays mounted so an in-progress workout (and its
             timers) isn't lost when you peek at another tab. */}
         <div style={{ display: tab === 'session' ? 'block' : 'none' }}>
-          <SessionForm exercises={exercises} routines={routines} onSaved={bump} />
+          <SessionForm
+            exercises={exercises}
+            routines={routines}
+            recentSessions={recentSessions}
+            onSaved={bump}
+          />
         </div>
         {tab === 'exercises' && <ExerciseManager exercises={exercises} onChanged={bump} />}
         {tab === 'routines' && (

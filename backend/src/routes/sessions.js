@@ -29,9 +29,12 @@ async function resolveExercises(exercises, userId, allowMissing) {
       return { error: 'Reps must be a valid, non-negative number' };
     }
 
+    const superset = ex.superset == null || ex.superset === '' ? NaN : Number(ex.superset);
+
     resolved.push({
       exercise: ex.exerciseId,
       exerciseName: name,
+      superset: Number.isFinite(superset) ? superset : undefined,
       durationSeconds: Math.max(0, Math.round(Number(ex.durationSeconds) || 0)),
       sets
     });
@@ -39,10 +42,12 @@ async function resolveExercises(exercises, userId, allowMissing) {
   return { resolved };
 }
 
-// GET /api/sessions - list this user's sessions, most recent first
+// GET /api/sessions?limit=N - this user's sessions, most recent first (all of them without a limit)
 router.get('/', async (req, res) => {
   try {
-    const sessions = await Session.find({ user: req.userId }).sort({ date: -1 });
+    const limit = Math.min(200, Math.max(0, Math.floor(Number(req.query.limit) || 0)));
+    const query = Session.find({ user: req.userId }).sort({ date: -1 });
+    const sessions = await (limit ? query.limit(limit) : query);
     res.json(sessions);
   } catch (err) {
     res.status(500).json({ error: err.message });

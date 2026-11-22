@@ -16,6 +16,8 @@ const sessionExerciseSchema = new mongoose.Schema(
     exercise: { type: mongoose.Schema.Types.ObjectId, ref: 'Exercise', required: true },
     exerciseName: { type: String, required: true }, // snapshot, survives renames
     durationSeconds: { type: Number, default: 0, min: 0 }, // time spent on this exercise
+    // Exercises of one session sharing the same number were done as a superset (a pair).
+    superset: { type: Number },
     sets: { type: [setSchema], default: [] }
   },
   { _id: false }
